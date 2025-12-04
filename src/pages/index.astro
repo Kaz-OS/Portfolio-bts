@@ -1,6 +1,10 @@
 ---
 import { Github, Linkedin, Mail } from "lucide-astro";
 import Layout from "../layouts/Layout.astro";
+
+const rgpdCerts = import.meta.glob("../assets/certifications/RGPD*.pdf", { eager: true });
+const rgpdUrls = Object.values(rgpdCerts).map((mod: any) => mod.default);
+
 const socials = [
   { label: "LinkedIn", icon: Linkedin, link: "https://www.linkedin.com/in/esteban-rattier-226688342/" },
   { label: "GitHub", icon: Github, link: "https://github.com/Kaz-OS" },
@@ -90,9 +94,9 @@ const socials = [
   <section class="Certifications">
     <h1>Certifications</h1>
     <div class="certif-grid">
-      <article class="certif-card">
+      <article class="certif-card" id="rgpd-card" style="cursor: pointer;">
         <img src="/attestations/rgpd.png" alt="Certification RGPD — Règlement général sur la protection des données" loading="lazy" width="300" height="197" />
-        <h3>RGPD</h3>
+        <h3>RGPD (Cliquer pour voir)</h3>
       </article>
 
       <article class="certif-card">
@@ -161,6 +165,26 @@ const socials = [
       </div>
     </section>
   </section>
+
+  <!-- Modal RGPD -->
+  <div id="rgpd-modal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="carousel-container">
+        <button class="prev" id="prevBtn">&#10094;</button>
+        <div class="carousel-slides">
+          {
+            rgpdUrls.map((url, index) => (
+              <div class="slide" data-index={index} style={index === 0 ? "display: block;" : "display: none;"}>
+                <iframe src={url} width="100%" height="600px" style="border: none;" />
+              </div>
+            ))
+          }
+        </div>
+        <button class="next" id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+  </div>
 </Layout>
 
 <script>
@@ -229,6 +253,59 @@ const socials = [
         { once: true },
       );
     }
+  }
+
+  // Modal RGPD : ouverture/fermeture
+  const rgpdCard = document.getElementById("rgpd-card");
+  const rgpdModal = document.getElementById("rgpd-modal");
+  const closeModal = document.querySelector(".close");
+
+  if (rgpdCard && rgpdModal && closeModal) {
+    rgpdCard.addEventListener("click", () => {
+      rgpdModal.style.display = "block";
+    });
+
+    closeModal.addEventListener("click", () => {
+      rgpdModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === rgpdModal) {
+        rgpdModal.style.display = "none";
+      }
+    });
+  }
+
+  // Navigation carousel RGPD
+  let currentSlide = 0;
+  const slides = document.querySelectorAll(".slide");
+  const updateSlideVisibility = () => {
+    slides.forEach((slide, index) => {
+      if (slide instanceof HTMLElement) {
+        slide.style.display = index === currentSlide ? "block" : "none";
+      }
+    });
+  };
+
+  const nextBtn = document.getElementById("nextBtn");
+  const prevBtn = document.getElementById("prevBtn");
+
+  if (nextBtn) {
+    nextBtn.addEventListener("click", () => {
+      if (currentSlide < slides.length - 1) {
+        currentSlide++;
+        updateSlideVisibility();
+      }
+    });
+  }
+
+  if (prevBtn) {
+    prevBtn.addEventListener("click", () => {
+      if (currentSlide > 0) {
+        currentSlide--;
+        updateSlideVisibility();
+      }
+    });
   }
 </script>
 
@@ -583,5 +660,95 @@ const socials = [
   .carousel.dragging + .drag-hint,
   .drag-hint.hide {
     opacity: 0;
+  }
+
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal-content {
+    background-color: #fefefe;
+    margin: 2% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 90%;
+    max-width: 1000px;
+    position: relative;
+    border-radius: 8px;
+  }
+
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    z-index: 1001;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .carousel-slides {
+    width: 100%;
+  }
+
+  .slide {
+    width: 100%;
+    text-align: center;
+  }
+
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: #333;
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background-color: rgba(200, 200, 200, 0.5);
+    border: none;
+    z-index: 10;
+  }
+
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev {
+    left: 0;
+    border-radius: 3px 0 0 3px;
+  }
+
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(200, 200, 200, 0.8);
   }
 </style>
