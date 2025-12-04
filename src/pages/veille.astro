@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import noSQLImage from "../assets/image/noSQL.png";
 import Layout from "../layouts/Layout.astro";
 
 const posts = await getCollection("veille");
@@ -9,17 +10,55 @@ const posts = await getCollection("veille");
   <div class="veille-container">
     <h1>Veille : NoSQL</h1>
 
-    <h2>Presentation du theme</h2>
+    <h2>Qu’est-ce que c’est le NoSQL ?</h2>
     <p>
-      Le theme de ma veille est <strong>NoSQL</strong>. Il regroupe les bases de donnees non relationnelles, concues pour repondre aux enjeux du Big Data, du Cloud et des applications temps reel. Ce
-      sujet est essentiel car il permet de comprendre les evolutions des systemes de gestion de donnees modernes.
+      Le NoSQL est une base de données de type non relationnelle. Ce type de base de données n’utilise pas le schéma sous forme de tableau qui sont généralement présent dans les bases de données
+      traditionnels.
     </p>
+
+    <h2>À quoi sert-il ?</h2>
+    <p>
+      Les bases de données NoSQL sont souvent utilisées dans les services web ou bien le big data en temps réel, car cette base de données à comme avantage de proposer une bonne flexibilité,
+      évolutivité, disponibilité et de hautes performances.
+    </p>
+
+    <h2>Les différents types de bases de données NoSQL :</h2>
+    <div class="nosql-types">
+      <img src={noSQLImage.src} alt="Types de bases de données NoSQL" class="nosql-diagram" />
+      <ul>
+        <li><strong>Document</strong> - Ce type de bases de données sont utilisées pour stocker, extraire, et gérer des données semi-structurées</li>
+        <li><strong>Graphe</strong> - Ce type de bases de données organise les données en tant que point et des relations, qui indique les connexions entre ces points</li>
+        <li><strong>Valeur clé</strong> - Ce type de bases de données stockent les données sous formes de paires de clé, sur lequel chaque valeurs est associée à une clé unique</li>
+        <li><strong>Colonne large</strong> - Ce type de bases de données stockent les données sous formes de tables, de lignes, et de colonnes</li>
+      </ul>
+    </div>
 
     <h2>Outils de veille</h2>
     <ul>
       <li><strong>Feedly</strong> - agregateur de flux RSS pour suivre les sites specialises</li>
       <li><strong>Google Alerts</strong> - alertes automatiques par mots-cles ("NoSQL", "MongoDB", "Big Data")</li>
-      <li><em>+ 1 nouvel outil teste chaque mois</em> (ex. Inoreader, Scoop.it, Paper.li...)</li>
+      <li>
+        <strong>Flipboard</strong> - outil de curation de contenu visuellement attrayant pour suivre des sujets et des mots clés, avec magazines personnalisés. Les articles sont bien sélectionnés et pertinents
+      </li>
+      <li>
+        <strong>Talkwalker Alerts</strong> - alternative intéressante à Google Alert. Permet de créer des alertes sur des mots clés et d’envoyer des notifications par email. L’interface est simple d’utilisation
+        et permet de gérer plusieurs alertes. Cependant, le contenu des alertes peut parfois manquer de pertinence, similaire à Google Alert, surtout pour des sujets très spécifiques.
+        <br />Mot clés : "NoSQL, Database, SGBD, Oracle, DB, et autres."
+      </li>
+      <li>
+        <strong>Inoreader</strong> - Inoreader est une plateforme similaire à Feedly, offrant une interface bien organisée et facile à utiliser. Il permet de suivre des flux RSS, des mots clés, et même
+        des réseaux sociaux comme Twitter. Cet outil est apprécié pour sa capacité à offrir une large sélection d'articles pertinents, particulièrement dans le domaine de la technologie et des bases de
+        données, ce qui le rend très utile pour des sujets comme NoSQL et les SGBD. Une fonctionnalité intéressante est la possibilité de sauvegarder et de taguer des articles pour une consultation ultérieure.
+        <br />Mot clés : "NoSQL, Database, SGBD, Oracle, DB, et autres."
+        <br />Sites : "InfoQ - NoSQL, Human Coders News - NoSQL, MyNoSQL"
+      </li>
+      <li>
+        <strong>FlipRSS</strong> - FlipRSS est un outil qui permet de transformer des flux RSS en magazines interactifs, un peu à la manière de Flipboard. Il est simple d’utilisation et offre une présentation
+        agréable des contenus suivis. L’outil est apprécié pour sa capacité à organiser les informations de manière visuelle, ce qui rend la veille plus agréable. Cependant, il est moins robuste pour des
+        recherches très pointues, et certains flux peuvent manquer de profondeur technique.
+        <br />Mot clés : "NoSQL, Database, SGBD, Oracle, DB, et autres."
+        <br />Sites : "InfoQ - NoSQL, Human Coders News - NoSQL, MyNoSQL"
+      </li>
     </ul>
 
     <h2>Presentation du bornage</h2>
@@ -94,5 +133,31 @@ const posts = await getCollection("veille");
 
   .post-link:hover {
     border-color: #0070f3;
+  }
+
+  .nosql-types {
+    display: block;
+    margin: 1.5rem 0;
+  }
+
+  .nosql-diagram {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin: 1rem auto 1.5rem auto;
+    display: block;
+  }
+
+  .nosql-types ul {
+    margin: 0;
+    padding-left: 1.2rem;
+  }
+
+  @media (max-width: 768px) {
+    .nosql-diagram {
+      max-width: 100%;
+    }
   }
 </style>

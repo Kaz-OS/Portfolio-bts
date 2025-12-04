@@ -10,13 +10,12 @@ import Layout from "../layouts/Layout.astro";
 
       <div class="attestations">
         <iframe src="/attestations/ERA_Attestation.pdf"></iframe>
-        <iframe src="/attestations/ERA_Attestation2.pdf"></iframe>
       </div>
     </div>
 
     <div class="E6">
       <h1>E6</h1>
-      <p>Contenu à compléter.</p>
+      <iframe src="/attestations/ERA_Attestation2.pdf"></iframe>
     </div>
   </main>
 </Layout>
@@ -46,10 +45,10 @@ import Layout from "../layouts/Layout.astro";
   }
 
   .download {
-    display: inline-block;
-    margin: 0.5rem 0 1rem;
+    display: block;
+    width: fit-content;
+    margin: 0.5rem auto 1rem;
     padding: 0.6rem 1rem;
-    margin-left: 10rem;
     background: #222;
     color: #fff;
     text-decoration: none;
