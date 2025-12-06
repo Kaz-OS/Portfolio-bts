@@ -1,0 +1,138 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+
+export function getStaticPaths() {
+  return [
+    { params: { id: "validation-w3c" }, props: { title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)", image: "/tp/ERA_Screen_W3.png" } },
+    { params: { id: "structuration-semantique" }, props: { title: "Structuration sémantique & accessibilité d’une première page" } },
+    { params: { id: "morpion-csharp" }, props: { title: "Morpion console C# (conventions nommage) (dès 25/11/24)" } },
+    { params: { id: "cybernews-dynamique" }, props: { title: "Site Cybernews: statique → dynamique + BD, mises à jour mensuelles (16/10/24 → 30/06/25)", image: "/tp/SiteCyberNews.png" } },
+    { params: { id: "powerbi-sql" }, props: { title: "Power BI + vues SQL normalisées (26/05/25 → 27/06/25)" } },
+    { params: { id: "gestion-utilisateurs-sql" }, props: { title: "Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)" } },
+    { params: { id: "site-equipe" }, props: { title: "Recensement & hébergement site d’équipe (04/11/24 → 24/01/25)" } },
+    { params: { id: "prise-en-main-powerbi" }, props: { title: "Prise en main environnement / matériel Power BI (26/05/25 → 27/06/25)" } },
+    { params: { id: "glpi-tickets" }, props: { title: "Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)" } },
+    { params: { id: "reunions-powerbi" }, props: { title: "Réunions d’ajustement Power BI (vues, filtres) (26/05/25 → 27/06/25)" } },
+    { params: { id: "cybernews-bd" }, props: { title: "Cybernews dynamique + BD (16/10/24 → 30/06/25)", image: "/tp/SiteCyberNews.png" } },
+    { params: { id: "site-equipe-dynamique" }, props: { title: "Site d’équipe: statique → dynamique (04/11/24 → 24/01/25)" } },
+    { params: { id: "trello" }, props: { title: "Trello: tâches, deadlines, statuts (04/11/24 → 24/01/25)" } },
+    { params: { id: "gantt-powerbi" }, props: { title: "Diagramme de Gantt Power BI (26/05/25 → 27/06/25)" } },
+    { params: { id: "suivi-powerbi" }, props: { title: "Suivi quotidien indicateurs Power BI (26/05/25 → 27/06/25)" } },
+    { params: { id: "site-equipe-ligne" }, props: { title: "Site d’équipe en ligne (04/11/24 → 24/01/25)" } },
+    { params: { id: "deploiement-cible" }, props: { title: "Exercice de déploiement ciblé (05/03/25)" } },
+    { params: { id: "publication-powerbi" }, props: { title: "Publication tableaux Power BI (26/05/25 → 27/06/25)" } },
+    { params: { id: "formation-utilisateurs" }, props: { title: "Formation utilisateurs (navigation, filtres Power BI) (26/05/25 → 27/06/25)" } },
+    { params: { id: "pix" }, props: { title: "Score Pix: 500 pts" } },
+    { params: { id: "mooc-anssi" }, props: { title: "MOOC ANSSI modules 1–5" } },
+    { params: { id: "linkedin" }, props: { title: "Profil LinkedIn", image: "/tp/ProfileLinkedin.png" } },
+    { params: { id: "etude-referentiel" }, props: { title: "Étude référentiel & fiche métier" } },
+    { params: { id: "analyse-sanctions" }, props: { title: "Analyse sanctions d’entreprise" } },
+    { params: { id: "veille-techno" }, props: { title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)" } },
+    { params: { id: "cybernews-veille" }, props: { title: "Cybernews (collecte & diffusion continue) (16/10/24 → 30/06/25)" } },
+  ];
+}
+
+const { title, image } = Astro.props;
+---
+
+<Layout>
+  <main class="tp-detail">
+    <a href="/rp" class="back-link">← Retour aux réalisations</a>
+    <h1>{title}</h1>
+
+    <div class="content-box">
+      {
+        image ? (
+          <div class="screen-container">
+            <img src={image} alt={`Capture d'écran pour ${title}`} />
+          </div>
+        ) : (
+          <div class="placeholder-screen">
+            <p>Capture d'écran à venir</p>
+          </div>
+        )
+      }
+
+      <div class="description">
+        <h2>Description</h2>
+        <p>Détails de la réalisation à compléter...</p>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .tp-detail {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+  }
+
+  .back-link {
+    display: inline-block;
+    margin-bottom: 1.5rem;
+    color: #666;
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .back-link:hover {
+    color: #000;
+    text-decoration: underline;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 2.5vw, 2.2rem);
+    margin-bottom: 2rem;
+    line-height: 1.3;
+  }
+
+  .content-box {
+    background: #fff;
+    border: 1px solid #e5e5e5;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  }
+
+  .placeholder-screen {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background-color: #f3f4f6;
+    border: 2px dashed #d1d5db;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+
+  .placeholder-screen p {
+    color: #6b7280;
+    font-weight: 500;
+  }
+
+  .screen-container {
+    margin-bottom: 2rem;
+    border: 1px solid #e5e5e5;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  }
+
+  .screen-container img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .description h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+
+  .description p {
+    color: #4b5563;
+    line-height: 1.6;
+  }
+</style>
