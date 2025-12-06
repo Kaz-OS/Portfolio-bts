@@ -3,28 +3,83 @@ import Layout from "../../../layouts/Layout.astro";
 
 export function getStaticPaths() {
   return [
-    { params: { id: "validation-w3c" }, props: { title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)", image: "/tp/ERA_Screen_W3.png" } },
-    { params: { id: "structuration-semantique" }, props: { title: "Structuration sémantique & accessibilité d’une première page" } },
-    { params: { id: "morpion-csharp" }, props: { title: "Morpion console C# (conventions nommage) (dès 25/11/24)" } },
-    { params: { id: "cybernews-dynamique" }, props: { title: "Site Cybernews: statique → dynamique + BD, mises à jour mensuelles (16/10/24 → 30/06/25)", image: "/tp/SiteCyberNews.png" } },
-    { params: { id: "powerbi-sql" }, props: { title: "Power BI + vues SQL normalisées (26/05/25 → 27/06/25)" } },
-    { params: { id: "gestion-utilisateurs-sql" }, props: { title: "Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)" } },
-    { params: { id: "site-equipe" }, props: { title: "Recensement & hébergement site d’équipe (04/11/24 → 24/01/25)" } },
-    { params: { id: "prise-en-main-powerbi" }, props: { title: "Prise en main environnement / matériel Power BI (26/05/25 → 27/06/25)" } },
-    { params: { id: "glpi-tickets" }, props: { title: "Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)" } },
-    { params: { id: "reunions-powerbi" }, props: { title: "Réunions d’ajustement Power BI (vues, filtres) (26/05/25 → 27/06/25)" } },
-    { params: { id: "cybernews-bd" }, props: { title: "Cybernews dynamique + BD (16/10/24 → 30/06/25)", image: "/tp/SiteCyberNews.png" } },
-    { params: { id: "site-equipe-dynamique" }, props: { title: "Site d’équipe: statique → dynamique (04/11/24 → 24/01/25)" } },
-    { params: { id: "trello" }, props: { title: "Trello: tâches, deadlines, statuts (04/11/24 → 24/01/25)" } },
-    { params: { id: "gantt-powerbi" }, props: { title: "Diagramme de Gantt Power BI (26/05/25 → 27/06/25)" } },
-    { params: { id: "suivi-powerbi" }, props: { title: "Suivi quotidien indicateurs Power BI (26/05/25 → 27/06/25)" } },
-    { params: { id: "site-equipe-ligne" }, props: { title: "Site d’équipe en ligne (04/11/24 → 24/01/25)" } },
+    {
+      params: { id: "validation-w3c" },
+      props: { title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)", image: { src: "/tp/ERA_Screen_W3.png", caption: "Résultat du validateur W3C" } },
+    },
+    { params: { id: "structuration-semantique" }, props: { title: "Structuration sémantique & accessibilité d'une première page" } },
+    {
+      params: { id: "morpion-csharp" },
+      props: {
+        title: "Morpion console C# (conventions nommage) (dès 25/11/24)",
+        description: `Ce projet de jeu de morpion en console C# met en pratique les conventions de nommage Microsoft :
+
+• **PascalCase** : Classes (Game, Player), méthodes publiques (StartGame, CheckWinner), propriétés
+• **camelCase** : Variables locales (currentPlayer, gameBoard), paramètres de méthodes
+• **_camelCase** : Champs privés de classe (_playerName, _score)
+• **UPPER_CASE** : Constantes (MAX_PLAYERS, BOARD_SIZE)
+
+Le code respecte également les bonnes pratiques : noms descriptifs, éviter les abréviations, utiliser des verbes pour les méthodes d'action.`,
+      },
+    },
+    {
+      params: { id: "cybernews-dynamique" },
+      props: { title: "Site Cybernews: statique → dynamique + BD, mises à jour mensuelles (16/10/24 → 30/06/25)", image: { src: "/tp/SiteCyberNews.png", caption: "Page d'accueil CyberNews" } },
+    },
+    {
+      params: { id: "gestion-utilisateurs-sql" },
+      props: { title: "Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)", image: { src: "/tp/GRANT.png", caption: "Commandes SQL GRANT et REVOKE" } },
+    },
+    {
+      params: { id: "site-equipe" },
+      props: {
+        title: "Recensement & hébergement site d’équipe (04/11/24 → 24/01/25)",
+        images: [
+          { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
+          { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+        ],
+      },
+    },
+    { params: { id: "glpi-tickets" }, props: { title: "Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)", image: { src: "/tp/GLPI.png", caption: "Interface GLPI" } } },
+    { params: { id: "cybernews-bd" }, props: { title: "Cybernews dynamique + BD (16/10/24 → 30/06/25)", image: { src: "/tp/SiteCyberNews.png", caption: "Page d'accueil CyberNews" } } },
+    {
+      params: { id: "site-equipe-dynamique" },
+      props: {
+        title: "Site d’équipe: statique → dynamique (04/11/24 → 24/01/25)",
+        images: [
+          { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
+          { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+        ],
+      },
+    },
+    { params: { id: "trello" }, props: { title: "Trello: tâches, deadlines, statuts (04/11/24 → 24/01/25)", image: { src: "/tp/TrelloEH.png", caption: "Tableau Trello" } } },
+    {
+      params: { id: "site-equipe-ligne" },
+      props: {
+        title: "Site d’équipe en ligne (04/11/24 → 24/01/25)",
+        images: [
+          { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
+          { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+        ],
+      },
+    },
     { params: { id: "deploiement-cible" }, props: { title: "Exercice de déploiement ciblé (05/03/25)" } },
-    { params: { id: "publication-powerbi" }, props: { title: "Publication tableaux Power BI (26/05/25 → 27/06/25)" } },
-    { params: { id: "formation-utilisateurs" }, props: { title: "Formation utilisateurs (navigation, filtres Power BI) (26/05/25 → 27/06/25)" } },
-    { params: { id: "pix" }, props: { title: "Score Pix: 500 pts" } },
-    { params: { id: "mooc-anssi" }, props: { title: "MOOC ANSSI modules 1–5" } },
-    { params: { id: "linkedin" }, props: { title: "Profil LinkedIn", image: "/tp/ProfileLinkedin.png" } },
+    { params: { id: "pix" }, props: { title: "Score Pix: 500 pts", image: { src: "/tp/Pix.png", caption: "Certification Pix" } } },
+    { params: { id: "mooc-anssi" }, props: { title: "MOOC ANSSI modules 1–5", image: { src: "/attestations/Anssi.png", caption: "Attestation MOOC ANSSI" } } },
+    {
+      params: { id: "rgpd" },
+      props: {
+        title: "Certifications RGPD",
+        images: [
+          { src: "/attestations/RGPD1.pdf", caption: "Module 1 - RGPD" },
+          { src: "/attestations/RGPD2.pdf", caption: "Module 2 - RGPD" },
+          { src: "/attestations/RGPD3.pdf", caption: "Module 3 - RGPD" },
+          { src: "/attestations/RGPD4.pdf", caption: "Module 4 - RGPD" },
+          { src: "/attestations/RGPD5.pdf", caption: "Module 5 - RGPD" },
+        ],
+      },
+    },
+    { params: { id: "linkedin" }, props: { title: "Profil LinkedIn", image: { src: "/tp/ProfileLinkedin.png", caption: "Profil LinkedIn" } } },
     { params: { id: "etude-referentiel" }, props: { title: "Étude référentiel & fiche métier" } },
     { params: { id: "analyse-sanctions" }, props: { title: "Analyse sanctions d’entreprise" } },
     { params: { id: "veille-techno" }, props: { title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)" } },
@@ -32,7 +87,20 @@ export function getStaticPaths() {
   ];
 }
 
-const { title, image } = Astro.props;
+const { title, image, images, description } = Astro.props;
+
+// Normalisation des images pour gérer les formats string et object
+const normalizeImages = () => {
+  const rawImages = images || (image ? [image] : []);
+  return rawImages.map((img) => {
+    if (typeof img === "string") {
+      return { src: img, caption: "" };
+    }
+    return img;
+  });
+};
+
+const allImages = normalizeImages();
 ---
 
 <Layout>
@@ -42,10 +110,19 @@ const { title, image } = Astro.props;
 
     <div class="content-box">
       {
-        image ? (
-          <div class="screen-container">
-            <img src={image} alt={`Capture d'écran pour ${title}`} />
-          </div>
+        allImages.length > 0 ? (
+          allImages.map((item) => (
+            <div class="image-block">
+              {item.caption && <h3 class="image-caption">{item.caption}</h3>}
+              <div class="screen-container">
+                {item.src.endsWith(".pdf") ? (
+                  <iframe src={item.src} style="width:100%;height:600px;border:none;" title={item.caption || `Document pour ${title}`} />
+                ) : (
+                  <img src={item.src} alt={item.caption || `Capture d'écran pour ${title}`} />
+                )}
+              </div>
+            </div>
+          ))
         ) : (
           <div class="placeholder-screen">
             <p>Capture d'écran à venir</p>
@@ -55,7 +132,7 @@ const { title, image } = Astro.props;
 
       <div class="description">
         <h2>Description</h2>
-        <p>Détails de la réalisation à compléter...</p>
+        {description ? <div class="description-content" set:html={description.replace(/\n/g, "<br />")} /> : <p>Détails de la réalisation à compléter...</p>}
       </div>
     </div>
   </main>
@@ -126,6 +203,17 @@ const { title, image } = Astro.props;
     display: block;
   }
 
+  .image-block {
+    margin-bottom: 2.5rem;
+  }
+
+  .image-caption {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+    color: #333;
+    font-weight: 600;
+  }
+
   .description h2 {
     font-size: 1.25rem;
     margin-bottom: 1rem;
@@ -134,5 +222,15 @@ const { title, image } = Astro.props;
   .description p {
     color: #4b5563;
     line-height: 1.6;
+  }
+
+  .description-content {
+    color: #4b5563;
+    line-height: 1.8;
+  }
+
+  .description-content strong {
+    color: #1f2937;
+    font-weight: 600;
   }
 </style>
