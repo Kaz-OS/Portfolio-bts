@@ -92,10 +92,10 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     </p>
 
     <h2>Mes articles de veille</h2>
-    <section class="post-list">
+    <section class="post-list" id="post-list">
       {
-        posts.map((item) => (
-          <div class="post-item">
+        posts.map((item, index) => (
+          <div class="post-item" data-index={index}>
             <a class="post-link" href={`/veille/${item.id}`}>
               {item.data.title}
             </a>
@@ -103,6 +103,11 @@ const posts = (await getCollection("veille")).sort((a, b) => {
         ))
       }
     </section>
+
+    <nav class="pagination" id="pagination">
+      <span class="page-info" id="page-info"></span>
+      <div class="pagination-buttons" id="pagination-buttons"></div>
+    </nav>
   </div>
 </Layout>
 
@@ -138,6 +143,11 @@ const posts = (await getCollection("veille")).sort((a, b) => {
 
   .post-item {
     margin-bottom: 1rem;
+    display: none;
+  }
+
+  .post-item.visible {
+    display: block;
   }
 
   .post-link {
@@ -173,9 +183,181 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     padding-left: 1.2rem;
   }
 
+  .pagination {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e2e8f0;
+    text-align: center;
+  }
+
+  .page-info {
+    display: block;
+    margin-bottom: 1.5rem;
+    color: #64748b;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  :global(.pagination-buttons) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+  }
+
+  :global(.pagination-button) {
+    min-width: 44px;
+    height: 44px;
+    padding: 0 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    color: #1e293b;
+    border: 2px solid transparent;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+  }
+
+  :global(.pagination-button::before) {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(0, 112, 243, 0.1);
+    transform: translate(-50%, -50%);
+    transition:
+      width 0.4s,
+      height 0.4s;
+  }
+
+  :global(.pagination-button:hover::before) {
+    width: 120%;
+    height: 120%;
+  }
+
+  :global(.pagination-button:hover:not(.active)) {
+    background: white;
+    border-color: #0070f3;
+    color: #0070f3;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 112, 243, 0.2);
+  }
+
+  :global(.pagination-button.active) {
+    background: linear-gradient(135deg, #0070f3 0%, #0056d2 100%);
+    color: white;
+    border-color: #0070f3;
+    cursor: default;
+    box-shadow: 0 4px 16px rgba(0, 112, 243, 0.4);
+    transform: scale(1.05);
+  }
+
+  :global(.pagination-button:active:not(.active)) {
+    transform: translateY(0);
+    box-shadow: 0 2px 6px rgba(0, 112, 243, 0.25);
+  }
+
   @media (max-width: 768px) {
     .nosql-diagram {
       max-width: 100%;
     }
+
+    :global(.pagination-buttons) {
+      gap: 0.3rem;
+    }
+
+    :global(.pagination-button) {
+      padding: 0.4rem 0.8rem;
+      font-size: 0.9rem;
+    }
   }
 </style>
+
+<script>
+  const ITEMS_PER_PAGE = 10;
+  let currentPage = 1;
+
+  const postItems = document.querySelectorAll(".post-item");
+  const totalItems = postItems.length;
+  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+
+  function showPage(page: number) {
+    currentPage = page;
+
+    // Masquer tous les articles
+    postItems.forEach((item, index) => {
+      item.classList.remove("visible");
+      const start = (page - 1) * ITEMS_PER_PAGE;
+      const end = start + ITEMS_PER_PAGE;
+
+      if (index >= start && index < end) {
+        item.classList.add("visible");
+      }
+    });
+
+    // Mettre à jour l'info de page
+    const pageInfo = document.getElementById("page-info");
+    if (pageInfo) {
+      pageInfo.textContent = `Page ${page} sur ${totalPages} (${totalItems} articles)`;
+    }
+
+    // Mettre à jour les boutons
+    updatePaginationButtons();
+  }
+
+  function updatePaginationButtons() {
+    const buttonsContainer = document.getElementById("pagination-buttons");
+    if (!buttonsContainer) return;
+
+    buttonsContainer.innerHTML = "";
+
+    // Bouton Précédent
+    if (currentPage > 1) {
+      const prevButton = document.createElement("button");
+      prevButton.className = "pagination-button";
+      prevButton.textContent = "← Précédent";
+      prevButton.onclick = () => showPage(currentPage - 1);
+      buttonsContainer.appendChild(prevButton);
+    }
+
+    // Boutons de numéros de page
+    for (let i = 1; i <= totalPages; i++) {
+      const pageButton = document.createElement("button");
+      pageButton.className = `pagination-button ${i === currentPage ? "active" : ""}`;
+      pageButton.textContent = i.toString();
+      pageButton.onclick = () => showPage(i);
+      buttonsContainer.appendChild(pageButton);
+    }
+
+    // Bouton Suivant
+    if (currentPage < totalPages) {
+      const nextButton = document.createElement("button");
+      nextButton.className = "pagination-button";
+      nextButton.textContent = "Suivant →";
+      nextButton.onclick = () => showPage(currentPage + 1);
+      buttonsContainer.appendChild(nextButton);
+    }
+  }
+
+  // Initialiser la pagination
+  if (totalPages > 1) {
+    showPage(1);
+  } else {
+    // Si une seule page, afficher tous les articles
+    postItems.forEach((item) => item.classList.add("visible"));
+    const pagination = document.getElementById("pagination");
+    if (pagination) pagination.style.display = "none";
+  }
+</script>
