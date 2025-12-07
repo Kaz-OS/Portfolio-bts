@@ -5,9 +5,19 @@ export function getStaticPaths() {
   return [
     {
       params: { id: "validation-w3c" },
-      props: { title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)", image: { src: "/tp/ERA_Screen_W3.png", caption: "Résultat du validateur W3C" } },
+      props: {
+        title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)",
+        image: { src: "/tp/ERA_Screen_W3.png", caption: "Résultat du validateur W3C" },
+        description: `Dans le cadre de la gestion du patrimoine informatique, il est essentiel de respecter les normes et standards du web. J'ai utilisé le validateur W3C pour vérifier la conformité de mes pages HTML et CSS, garantissant ainsi la qualité, l'accessibilité et la maintenabilité du code produit.`,
+      },
     },
-    { params: { id: "structuration-semantique" }, props: { title: "Structuration sémantique & accessibilité d'une première page" } },
+    {
+      params: { id: "structuration-semantique" },
+      props: {
+        title: "Structuration sémantique & accessibilité d'une première page",
+        description: `Ce travail pratique s'inscrit dans l'application des normes et référentiels web. J'ai structuré une page HTML en utilisant les balises sémantiques appropriées (header, nav, main, article, footer) et en respectant les critères d'accessibilité WCAG pour garantir une expérience utilisateur optimale pour tous.`,
+      },
+    },
     {
       params: { id: "morpion-csharp" },
       props: {
@@ -23,49 +33,113 @@ Le code respecte également les bonnes pratiques : noms descriptifs, éviter les
       },
     },
     {
+      params: { id: "norme-sql" },
+      props: {
+        title: "Normes SQL & bonnes pratiques",
+        image: { src: "/tp/normessql.png", caption: "Application des normes SQL" },
+        description: `Durant plusieurs travaux pratiques, nous avons dû appliquer des normes strictes concernant l'utilisation des contraintes en SQL. Cela incluait la mise en place de clés primaires, clés étrangères, contraintes d'unicité et de vérification, en respectant les conventions de nommage et les standards de l'industrie pour garantir l'intégrité des données.`,
+      },
+    },
+    {
       params: { id: "cybernews-dynamique" },
       props: { title: "Site Cybernews: statique → dynamique + BD, mises à jour mensuelles (16/10/24 → 30/06/25)", image: { src: "/tp/SiteCyberNews.png", caption: "Page d'accueil CyberNews" } },
     },
     {
       params: { id: "gestion-utilisateurs-sql" },
-      props: { title: "Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)", image: { src: "/tp/GRANT.png", caption: "Commandes SQL GRANT et REVOKE" } },
+      props: {
+        title: "Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)",
+        image: { src: "/tp/GRANT.png", caption: "Commandes SQL GRANT et REVOKE" },
+        description: `La gestion des habilitations fait partie intégrante de la gestion du patrimoine informatique. J'ai mis en pratique la création d'utilisateurs et l'attribution de droits via les commandes SQL GRANT et REVOKE, en appliquant le principe du moindre privilège pour sécuriser l'accès aux données.`,
+      },
     },
     {
       params: { id: "site-equipe" },
       props: {
-        title: "Recensement & hébergement site d’équipe (04/11/24 → 24/01/25)",
+        title: "Recensement & hébergement site d'équipe (04/11/24 → 24/01/25)",
         images: [
           { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
           { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+          { src: "/tp/bdEH.png", caption: "Base de données du site" },
         ],
+        description: `Ce projet illustre le travail en mode projet avec planification rigoureuse. Nous avons utilisé Trello pour organiser les tâches, définir les deadlines et suivre l'avancement du projet. Cette méthodologie a permis une collaboration efficace et le respect des délais fixés.`,
       },
     },
-    { params: { id: "glpi-tickets" }, props: { title: "Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)", image: { src: "/tp/GLPI.png", caption: "Interface GLPI" } } },
-    { params: { id: "cybernews-bd" }, props: { title: "Cybernews dynamique + BD (16/10/24 → 30/06/25)", image: { src: "/tp/SiteCyberNews.png", caption: "Page d'accueil CyberNews" } } },
+    {
+      params: { id: "glpi-tickets" },
+      props: {
+        title: "Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)",
+        image: { src: "/tp/GLPI.png", caption: "Interface GLPI" },
+        description: `Pour ce TP, j'ai déployé GLPI sur une machine virtuelle en configurant l'environnement LAMP nécessaire. J'ai ensuite pris en main l'interface de l'outil, en particulier le tableau de bord et le module de gestion des tickets. Cette mise en pratique m'a permis de comprendre comment structurer et suivre efficacement les demandes et incidents informatiques dans un contexte professionnel.`,
+      },
+    },
+    {
+      params: { id: "cybernews-bd" },
+      props: {
+        title: "Cybernews dynamique + BD (16/10/24 → 30/06/25)",
+        image: { src: "/tp/SiteCyberNews.png", caption: "Page d'accueil CyberNews" },
+        description: `Dans le cadre du développement de la présence en ligne, j'ai fait évoluer le site Cybernews d'une version statique vers une version dynamique connectée à une base de données. Cette transformation permet la mise à jour mensuelle du contenu et améliore la gestion de l'information diffusée.`,
+      },
+    },
     {
       params: { id: "site-equipe-dynamique" },
       props: {
-        title: "Site d’équipe: statique → dynamique (04/11/24 → 24/01/25)",
+        title: "Site d'équipe: statique → dynamique (04/11/24 → 24/01/25)",
         images: [
           { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
           { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+          { src: "/tp/bdEH.png", caption: "Base de données du site" },
         ],
+        description: `Pour développer la présence en ligne, j'ai transformé le site d'équipe en version dynamique avec intégration d'une base de données. Cette évolution permet une gestion simplifiée du contenu et offre de nouvelles fonctionnalités interactives aux utilisateurs.`,
       },
     },
     { params: { id: "trello" }, props: { title: "Trello: tâches, deadlines, statuts (04/11/24 → 24/01/25)", image: { src: "/tp/TrelloEH.png", caption: "Tableau Trello" } } },
     {
+      params: { id: "gsk" },
+      props: {
+        title: "Projet GSK: analyse besoins & recommandations matériel/logiciel",
+        image: { src: "/tp/TrelloGSK.png", caption: "Tableau Trello du projet GSK" },
+        description: `Ce projet s'appuyait sur un cahier des charges fourni par l'entreprise pharmaceutique GSK. L'objectif était d'analyser leurs besoins techniques et de proposer une solution matérielle (postes de travail, périphériques) ainsi qu'une suite logicielle cohérente et adaptée à leur environnement.
+
+J'ai participé à la sélection du matériel et à l'élaboration d'une présentation détaillant nos recommandations et la méthodologie suivie pour répondre aux exigences du client.
+
+La coordination de l'équipe a été facilitée par l'utilisation de Trello, qui nous a permis de structurer la répartition des tâches et d'assurer un suivi régulier de l'avancement du projet.`,
+      },
+    },
+    {
       params: { id: "site-equipe-ligne" },
       props: {
-        title: "Site d’équipe en ligne (04/11/24 → 24/01/25)",
+        title: "Site d'équipe en ligne (04/11/24 → 24/01/25)",
         images: [
           { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
           { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
+          { src: "/tp/bdEH.png", caption: "Base de données du site" },
         ],
+        description: `J'ai assuré le déploiement et la mise en ligne du site d'équipe, garantissant sa disponibilité pour les utilisateurs. Cette mise à disposition impliquait la configuration du serveur web, le transfert des fichiers et la vérification du bon fonctionnement en production.`,
       },
     },
-    { params: { id: "deploiement-cible" }, props: { title: "Exercice de déploiement ciblé (05/03/25)" } },
-    { params: { id: "pix" }, props: { title: "Score Pix: 500 pts", image: { src: "/tp/Pix.png", caption: "Certification Pix" } } },
-    { params: { id: "mooc-anssi" }, props: { title: "MOOC ANSSI modules 1–5", image: { src: "/attestations/Anssi.png", caption: "Attestation MOOC ANSSI" } } },
+    {
+      params: { id: "deploiement-cible" },
+      props: {
+        title: "Exercice de déploiement ciblé (05/03/25)",
+        description: `Cet exercice pratique m'a permis de mettre en œuvre les différentes étapes du déploiement d'un service informatique : préparation de l'environnement, configuration des dépendances, tests de validation et mise en production. J'ai ainsi développé ma capacité à mettre à disposition des services fonctionnels pour les utilisateurs.`,
+      },
+    },
+    {
+      params: { id: "pix" },
+      props: {
+        title: "Score Pix: 500 pts",
+        image: { src: "/tp/Pix.png", caption: "Certification Pix" },
+        description: `Dans le cadre de l'organisation de mon développement professionnel, j'ai obtenu la certification Pix avec un score de 500 points. Cette certification valide mes compétences numériques dans plusieurs domaines : traitement de l'information, communication, création de contenu, protection et sécurité.`,
+      },
+    },
+    {
+      params: { id: "mooc-anssi" },
+      props: {
+        title: "MOOC ANSSI modules 1–5",
+        image: { src: "/attestations/Anssi.png", caption: "Attestation MOOC ANSSI" },
+        description: `Pour approfondir mes connaissances en cybersécurité, j'ai suivi et validé les 5 modules du MOOC de l'ANSSI. Cette formation m'a permis de comprendre les enjeux de la sécurité informatique, les principales menaces et les bonnes pratiques à mettre en œuvre pour protéger les systèmes d'information.`,
+      },
+    },
     {
       params: { id: "rgpd" },
       props: {
@@ -77,13 +151,55 @@ Le code respecte également les bonnes pratiques : noms descriptifs, éviter les
           { src: "/attestations/RGPD4.pdf", caption: "Module 4 - RGPD" },
           { src: "/attestations/RGPD5.pdf", caption: "Module 5 - RGPD" },
         ],
+        description: `J'ai complété l'ensemble des modules de formation RGPD pour développer mes compétences en protection des données personnelles. Cette formation couvre les principes fondamentaux du règlement européen, les droits des personnes, les obligations des responsables de traitement et les mesures de sécurité à mettre en place.`,
       },
     },
-    { params: { id: "linkedin" }, props: { title: "Profil LinkedIn", image: { src: "/tp/ProfileLinkedin.png", caption: "Profil LinkedIn" } } },
-    { params: { id: "etude-referentiel" }, props: { title: "Étude référentiel & fiche métier" } },
-    { params: { id: "analyse-sanctions" }, props: { title: "Analyse sanctions d’entreprise" } },
-    { params: { id: "veille-techno" }, props: { title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)" } },
-    { params: { id: "cybernews-veille" }, props: { title: "Cybernews (collecte & diffusion continue) (16/10/24 → 30/06/25)" } },
+    {
+      params: { id: "linkedin" },
+      props: {
+        title: "Profil LinkedIn",
+        image: { src: "/tp/ProfileLinkedin.png", caption: "Profil LinkedIn" },
+        description: `Dans le cadre de mon développement professionnel, j'ai créé et optimisé mon profil LinkedIn pour développer mon réseau professionnel et valoriser mon parcours. Ce profil présente mes compétences, formations et expériences, et me permet d'être visible auprès des recruteurs et professionnels du secteur informatique.`,
+      },
+    },
+    {
+      params: { id: "etude-referentiel" },
+      props: {
+        title: "Étude référentiel & fiche métier",
+        description: `J'ai analysé le référentiel du BTS SIO et étudié différentes fiches métiers pour mieux comprendre les compétences attendues et les débouchés professionnels. Cette démarche m'a permis de cibler mon projet professionnel et d'identifier les compétences à développer pour atteindre mes objectifs de carrière.`,
+      },
+    },
+    {
+      params: { id: "analyse-sanctions" },
+      props: {
+        title: "Analyse sanctions d'entreprise",
+        description: `J'ai étudié plusieurs cas de sanctions prononcées par la CNIL contre des entreprises pour non-respect du RGPD. Cette analyse m'a permis de comprendre concrètement les risques juridiques et financiers liés à une mauvaise gestion des données personnelles, ainsi que l'importance du respect des réglementations dans le domaine informatique.`,
+      },
+    },
+    {
+      params: { id: "portfolio" },
+      props: {
+        title: "Portfolio BTS SIO",
+        image: { src: "/tp/Portfolio-bts.png", caption: "Page d'accueil du portfolio" },
+        description: `Ce portfolio a été développé avec Astro, un framework moderne axé sur la performance. Il présente l'ensemble de mes réalisations durant ma formation BTS SIO, organisées selon les blocs de compétences du référentiel.
+
+Le site est entièrement responsive et déployé en ligne. Il me permet de valoriser mon parcours et mes compétences techniques auprès des recruteurs et jurys d'examen.`,
+      },
+    },
+    {
+      params: { id: "veille-techno" },
+      props: {
+        title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)",
+        description: `Dans le cadre de mon développement professionnel, j'ai mis en place une veille technologique sur le NoSQL avec production de synthèses mensuelles. Cette démarche me permet de rester informé des évolutions technologiques et d'identifier les tendances émergentes dans mon domaine de compétence.`,
+      },
+    },
+    {
+      params: { id: "cybernews-veille" },
+      props: {
+        title: "Cybernews (collecte & diffusion continue) (16/10/24 → 30/06/25)",
+        description: `Le site Cybernews constitue un support de veille et de diffusion continue d'informations sur la cybersécurité. Je collecte régulièrement des actualités pertinentes et les partage via ce site, développant ainsi ma capacité à organiser une veille informationnelle et à communiquer efficacement sur les enjeux de sécurité.`,
+      },
+    },
   ];
 }
 
