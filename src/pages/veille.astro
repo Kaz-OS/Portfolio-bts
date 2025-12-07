@@ -3,7 +3,9 @@ import { getCollection } from "astro:content";
 import noSQLImage from "../assets/image/noSQL.png";
 import Layout from "../layouts/Layout.astro";
 
-const posts = await getCollection("veille");
+const posts = (await getCollection("veille")).sort((a, b) => {
+  return new Date(b.data.date).getTime() - new Date(a.data.date).getTime();
+});
 ---
 
 <Layout>
@@ -12,7 +14,7 @@ const posts = await getCollection("veille");
 
     <h2>Qu’est-ce que c’est le NoSQL ?</h2>
     <p>
-      Le NoSQL est une base de données de type non relationnelle. Ce type de base de données n’utilise pas le schéma sous forme de tableau qui sont généralement présent dans les bases de données
+      Le NoSQL est un SGBD de données de type non relationnelle. Ce type de base de données n’utilise pas le schéma sous forme de tableau qui sont généralement présent dans les bases de données
       traditionnels.
     </p>
 
@@ -26,10 +28,22 @@ const posts = await getCollection("veille");
     <div class="nosql-types">
       <img src={noSQLImage.src} alt="Types de bases de données NoSQL" class="nosql-diagram" />
       <ul>
-        <li><strong>Document</strong> - Ce type de bases de données sont utilisées pour stocker, extraire, et gérer des données semi-structurées</li>
-        <li><strong>Graphe</strong> - Ce type de bases de données organise les données en tant que point et des relations, qui indique les connexions entre ces points</li>
-        <li><strong>Valeur clé</strong> - Ce type de bases de données stockent les données sous formes de paires de clé, sur lequel chaque valeurs est associée à une clé unique</li>
-        <li><strong>Colonne large</strong> - Ce type de bases de données stockent les données sous formes de tables, de lignes, et de colonnes</li>
+        <li>
+          <strong>Document</strong> - Ce type de bases de données sont utilisées pour stocker, extraire, et gérer des données semi-structurées
+          <br /><em>Exemples : MongoDB, Amazon DocumentDB</em>
+        </li>
+        <li>
+          <strong>Graphe</strong> - Ce type de bases de données organise les données en tant que point et des relations, qui indique les connexions entre ces points
+          <br /><em>Exemples : Neo4j, Amazon Neptune</em>
+        </li>
+        <li>
+          <strong>Valeur clé</strong> - Ce type de bases de données stockent les données sous formes de paires de clé, sur lequel chaque valeurs est associée à une clé unique
+          <br /><em>Exemples : Redis, Amazon DynamoDB</em>
+        </li>
+        <li>
+          <strong>Colonne large</strong> - Ce type de bases de données stockent les données sous formes de tables, de lignes, et de colonnes
+          <br /><em>Exemples : Apache Cassandra, HBase</em>
+        </li>
       </ul>
     </div>
 
