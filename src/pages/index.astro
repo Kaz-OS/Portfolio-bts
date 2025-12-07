@@ -2,8 +2,7 @@
 import { Github, Linkedin, Mail } from "lucide-astro";
 import Layout from "../layouts/Layout.astro";
 
-const rgpdCerts = import.meta.glob("../assets/certifications/RGPD*.pdf", { eager: true });
-const rgpdUrls = Object.values(rgpdCerts).map((mod: any) => mod.default);
+const rgpdUrls = ["/attestations/RGPD1.pdf", "/attestations/RGPD2.pdf", "/attestations/RGPD3.pdf", "/attestations/RGPD4.pdf", "/attestations/RGPD5.pdf"];
 
 const socials = [
   { label: "LinkedIn", icon: Linkedin, link: "https://www.linkedin.com/in/esteban-rattier-226688342/" },
