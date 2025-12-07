@@ -179,11 +179,15 @@ La coordination de l'équipe a été facilitée par l'utilisation de Trello, qui
     {
       params: { id: "portfolio" },
       props: {
-        title: "Portfolio BTS SIO",
-        image: { src: "/tp/Portfolio-bts.png", caption: "Page d'accueil du portfolio" },
-        description: `Ce portfolio a été développé avec Astro, un framework moderne axé sur la performance. Il présente l'ensemble de mes réalisations durant ma formation BTS SIO, organisées selon les blocs de compétences du référentiel.
-
-Le site est entièrement responsive et déployé en ligne. Il me permet de valoriser mon parcours et mes compétences techniques auprès des recruteurs et jurys d'examen.`,
+        title: "Portfolio BTS SIO - Développement avec Astro",
+        images: [
+          { src: "/tp/Portfolio-bts.png", caption: "Page d'accueil du portfolio" },
+          { src: "/tp/portfolio-astro-config.png", caption: "Configuration Astro (astro.config.mjs)" },
+          { src: "/tp/portfolio-layout-component.png", caption: "Composant Layout principal" },
+          { src: "/tp/portfolio-routing.png", caption: "Système de routing dynamique" },
+          { src: "/tp/portfolio-content-collections.png", caption: "Content Collections pour les articles" },
+          { src: "/tp/portfolio-responsive.png", caption: "Design responsive avec CSS" },
+        ],
       },
     },
     {
