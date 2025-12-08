@@ -76,10 +76,11 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     </ul>
 
     <h2>Presentation du bornage</h2>
-    <p>
-      La veille se concentre sur l'actualite des bases NoSQL (nouvelles fonctionnalites, comparatifs, cas d'usage concrets). Elle exclut volontairement les bases purement relationnelles afin de cibler
-      les innovations specifiques au NoSQL.
-    </p>
+    <p>La veille se concentre sur deux axes principaux :</p>
+    <ul>
+      <li><strong>BDnoSQL</strong> - Technologies et innovations spécifiques aux bases de données NoSQL</li>
+      <li><strong>bigdata</strong> - Applications et enjeux du Big Data</li>
+    </ul>
 
     <h2>Mise en oeuvre</h2>
     <p>
@@ -87,18 +88,46 @@ const posts = (await getCollection("veille")).sort((a, b) => {
       comprendre les besoins des entreprises dans le Big Data et le Cloud.
     </p>
     <p>
-      J'ai pu mettre en pratique ces connaissances en expérimentant avec MongoDB et DocumentDB pour des projets personnels, notamment en testant la modélisation de documents JSON et les requêtes
-      NoSQL. Ces manipulations m'ont permis de mieux comprendre les différences entre les approches relationnelles et documentaires, ainsi que les avantages de la flexibilité du schéma NoSQL.
+      J'ai pris un TP de C# et l'ai adapté pour utiliser des bases de données NoSQL. Cette adaptation m'a permis de mettre en pratique les concepts de bases de données non relationnelles avec MongoDB,
+      en développant une application de gestion de radar.
     </p>
 
+    <div class="screenshots">
+      <div class="screenshot-item">
+        <h3>Base de données MongoDB</h3>
+        <img src="/images/MongoDBCompass.png" alt="MongoDB Compass - Collection Immatriculations" />
+        <p>Visualisation de la collection "Immatriculations" dans MongoDB Compass avec les documents enregistrés.</p>
+      </div>
+
+      <div class="screenshot-item">
+        <h3>Interface de l'application</h3>
+        <img src="/images/App.png" alt="Interface Nouveau Radar" />
+        <p>Interface de l'application permettant d'ajouter un nouveau radar et d'afficher l'historique des passages.</p>
+      </div>
+
+      <div class="screenshot-item">
+        <h3>Container Docker MongoDB</h3>
+        <img src="/images/DockerPS.png" alt="Docker PS - MongoDB Container" />
+        <p>Container Docker exécutant MongoDB en local pour le développement.</p>
+      </div>
+    </div>
+
     <h2>Mes articles de veille</h2>
+
+    <div class="filter-buttons">
+      <button class="filter-button active" data-filter="all">Tous les articles</button>
+      <button class="filter-button" data-filter="bdnoSQL">BDnoSQL</button>
+      <button class="filter-button" data-filter="bigdata">bigdata</button>
+    </div>
+
     <section class="post-list" id="post-list">
       {
         posts.map((item, index) => (
-          <div class="post-item" data-index={index}>
+          <div class="post-item" data-index={index} data-boundary={item.data.boundaries[0]}>
             <a class="post-link" href={`/veille/${item.id}`}>
               {item.data.title}
             </a>
+            <span class="post-tag">{item.data.boundaries[0]}</span>
           </div>
         ))
       }
@@ -144,10 +173,21 @@ const posts = (await getCollection("veille")).sort((a, b) => {
   .post-item {
     margin-bottom: 1rem;
     display: none;
+    padding: 0.75rem;
+    background: #f8f9fa;
+    border-radius: 6px;
+    transition: background 0.2s ease;
+  }
+
+  .post-item:hover {
+    background: #e9ecef;
   }
 
   .post-item.visible {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
   }
 
   .post-link {
@@ -157,10 +197,55 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     font-size: 1.1rem;
     border-bottom: 2px solid transparent;
     transition: border-color 0.3s ease;
+    flex: 1;
   }
 
   .post-link:hover {
     border-color: #0070f3;
+  }
+
+  .post-tag {
+    background: linear-gradient(135deg, #0070f3 0%, #0056d2 100%);
+    color: white;
+    padding: 0.35rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+
+  .filter-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filter-button {
+    padding: 0.75rem 1.5rem;
+    border: 2px solid #e2e8f0;
+    background: white;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #1e293b;
+  }
+
+  .filter-button:hover {
+    border-color: #0070f3;
+    color: #0070f3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 112, 243, 0.2);
+  }
+
+  .filter-button.active {
+    background: linear-gradient(135deg, #0070f3 0%, #0056d2 100%);
+    color: white;
+    border-color: #0070f3;
+    box-shadow: 0 4px 16px rgba(0, 112, 243, 0.4);
   }
 
   .nosql-types {
@@ -283,28 +368,79 @@ const posts = (await getCollection("veille")).sort((a, b) => {
       font-size: 0.9rem;
     }
   }
+
+  .screenshots {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+  }
+
+  .screenshot-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .screenshot-item h3 {
+    color: #1e293b;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+  }
+
+  .screenshot-item img {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+    margin-bottom: 1rem;
+    border: 1px solid #e2e8f0;
+  }
+
+  .screenshot-item p {
+    color: #64748b;
+    font-size: 0.95rem;
+    font-style: italic;
+    margin: 0;
+  }
 </style>
 
 <script>
   const ITEMS_PER_PAGE = 10;
   let currentPage = 1;
+  let currentFilter = "all";
 
   const postItems = document.querySelectorAll(".post-item");
-  const totalItems = postItems.length;
-  const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
+  const filterButtons = document.querySelectorAll(".filter-button");
+
+  function getFilteredItems() {
+    if (currentFilter === "all") {
+      return Array.from(postItems);
+    }
+    return Array.from(postItems).filter((item) => {
+      const boundary = item.getAttribute("data-boundary");
+      return boundary === currentFilter;
+    });
+  }
 
   function showPage(page: number) {
     currentPage = page;
+    const filteredItems = getFilteredItems();
+    const totalItems = filteredItems.length;
+    const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
 
     // Masquer tous les articles
-    postItems.forEach((item, index) => {
+    postItems.forEach((item) => {
       item.classList.remove("visible");
-      const start = (page - 1) * ITEMS_PER_PAGE;
-      const end = start + ITEMS_PER_PAGE;
+    });
 
-      if (index >= start && index < end) {
-        item.classList.add("visible");
-      }
+    // Afficher les articles filtrés pour la page actuelle
+    const start = (page - 1) * ITEMS_PER_PAGE;
+    const end = start + ITEMS_PER_PAGE;
+
+    filteredItems.slice(start, end).forEach((item) => {
+      item.classList.add("visible");
     });
 
     // Mettre à jour l'info de page
@@ -314,10 +450,10 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     }
 
     // Mettre à jour les boutons
-    updatePaginationButtons();
+    updatePaginationButtons(totalPages);
   }
 
-  function updatePaginationButtons() {
+  function updatePaginationButtons(totalPages: number) {
     const buttonsContainer = document.getElementById("pagination-buttons");
     if (!buttonsContainer) return;
 
@@ -351,13 +487,33 @@ const posts = (await getCollection("veille")).sort((a, b) => {
     }
   }
 
-  // Initialiser la pagination
+  // Gestion des filtres
+  filterButtons.forEach((button) => {
+    button.addEventListener("click", () => {
+      // Mettre à jour les classes actives
+      filterButtons.forEach((btn) => btn.classList.remove("active"));
+      button.classList.add("active");
+
+      // Mettre à jour le filtre actuel
+      currentFilter = button.getAttribute("data-filter") || "all";
+
+      // Réinitialiser à la page 1 et afficher
+      showPage(1);
+    });
+  });
+
+  // Initialiser l'affichage
+  const filteredItems = getFilteredItems();
+  const totalPages = Math.ceil(filteredItems.length / ITEMS_PER_PAGE);
+
   if (totalPages > 1) {
     showPage(1);
   } else {
-    // Si une seule page, afficher tous les articles
-    postItems.forEach((item) => item.classList.add("visible"));
+    // Si une seule page, afficher tous les articles filtrés
+    filteredItems.forEach((item) => item.classList.add("visible"));
     const pagination = document.getElementById("pagination");
-    if (pagination) pagination.style.display = "none";
+    if (pagination && filteredItems.length <= ITEMS_PER_PAGE) {
+      pagination.style.display = "none";
+    }
   }
 </script>
