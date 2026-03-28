@@ -2,7 +2,8 @@
 import { Github, Linkedin, Mail } from "lucide-astro";
 import Layout from "../layouts/Layout.astro";
 
-const rgpdUrls = ["/attestations/RGPD1.pdf", "/attestations/RGPD2.pdf", "/attestations/RGPD3.pdf", "/attestations/RGPD4.pdf", "/attestations/RGPD5.pdf"];
+const rgpdUrls = ["/attestations/RGPD1.pdf", "/attestations/RGPD2.pdf", "/attestations/RGPD3.pdf", "/attestations/RGPD4.pdf", "/attestations/RGPD5.pdf", "/attestations/RGPD6.pdf"];
+const anssiUrls = ["/attestations/ANSSI.png"];
 
 const socials = [
   { label: "LinkedIn", icon: Linkedin, link: "https://www.linkedin.com/in/esteban-rattier-226688342/" },
@@ -15,10 +16,7 @@ const socials = [
   <main>
     <section class="profil">
       <h1>Profil</h1>
-      <p>
-        Étudiant en informatique. Actuellement à la recherche d'un stage de 5 semaines (du 5 Janvier au 13 Février) en développement pour valider ma 2e année de BTS Services Informatiques aux
-        Organisations (SIO).
-      </p>
+      <p>Étudiant en informatique, actuellement à la recherche d'une alternance en développement pour poursuivre mes études en licence.</p>
     </section>
     <div class="icones">
       {
@@ -65,6 +63,22 @@ const socials = [
           <li>Imprimerie numérique</li>
         </ul>
       </div>
+      <div class="experience-card">
+        <h2>DI-EUREKA</h2>
+        <p class="role">Développeur web stagiaire</p>
+        <ul>
+          <li><strong>Durée:</strong> 5 semaines</li>
+          <li>Développement web</li>
+        </ul>
+      </div>
+      <div class="experience-card">
+        <h2>DI-EUREKA</h2>
+        <p class="role">Développeur web stagiaire</p>
+        <ul>
+          <li><strong>Durée:</strong> 6 semaines</li>
+          <li>Développement web</li>
+        </ul>
+      </div>
     </div>
   </section>
 
@@ -104,9 +118,9 @@ const socials = [
         <h3>Pix</h3>
       </article>
 
-      <article class="certif-card">
+      <article class="certif-card" id="anssi-card" style="cursor: pointer;">
         <img src="/attestations/Anssi.png" alt="Visa de sécurité ANSSI — Agence nationale de la sécurité des systèmes d'information" loading="lazy" width="523" height="252" />
-        <h3>ANSSI</h3>
+        <h3>ANSSI (Cliquer pour voir)</h3>
       </article>
     </div>
   </section>
@@ -166,19 +180,39 @@ const socials = [
   <!-- Modal RGPD -->
   <div id="rgpd-modal" class="modal">
     <div class="modal-content">
-      <span class="close">&times;</span>
+      <span class="close" id="close-rgpd">&times;</span>
       <div class="carousel-container">
         <button class="prev" id="prevBtn">&#10094;</button>
         <div class="carousel-slides">
           {
             rgpdUrls.map((url, index) => (
-              <div class="slide" data-index={index} style={index === 0 ? "display: block;" : "display: none;"}>
+              <div class="rgpd-slide" data-index={index} style={index === 0 ? "display: block;" : "display: none;"}>
                 <iframe src={url} width="100%" height="600px" style="border: none;" />
               </div>
             ))
           }
         </div>
         <button class="next" id="nextBtn">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal ANSSI -->
+  <div id="anssi-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-anssi">&times;</span>
+      <div class="carousel-container">
+        <button class="prev" id="prevAnssiBtn">&#10094;</button>
+        <div class="carousel-slides">
+          {
+            anssiUrls.map((url, index) => (
+              <div class="anssi-slide" data-index={index} style={index === 0 ? "display: block;" : "display: none;"}>
+                <iframe src={url} width="100%" height="600px" style="border: none;" />
+              </div>
+            ))
+          }
+        </div>
+        <button class="next" id="nextAnssiBtn">&#10095;</button>
       </div>
     </div>
   </div>
@@ -255,14 +289,19 @@ const socials = [
   // Modal RGPD : ouverture/fermeture
   const rgpdCard = document.getElementById("rgpd-card");
   const rgpdModal = document.getElementById("rgpd-modal");
-  const closeModal = document.querySelector(".close");
+  const closeRgpdModal = document.getElementById("close-rgpd");
 
-  if (rgpdCard && rgpdModal && closeModal) {
+  // Modal ANSSI : ouverture/fermeture
+  const anssiCard = document.getElementById("anssi-card");
+  const anssiModal = document.getElementById("anssi-modal");
+  const closeAnssiModal = document.getElementById("close-anssi");
+
+  if (rgpdCard && rgpdModal && closeRgpdModal) {
     rgpdCard.addEventListener("click", () => {
       rgpdModal.style.display = "block";
     });
 
-    closeModal.addEventListener("click", () => {
+    closeRgpdModal.addEventListener("click", () => {
       rgpdModal.style.display = "none";
     });
 
@@ -273,9 +312,25 @@ const socials = [
     });
   }
 
+  if (anssiCard && anssiModal && closeAnssiModal) {
+    anssiCard.addEventListener("click", () => {
+      anssiModal.style.display = "block";
+    });
+
+    closeAnssiModal.addEventListener("click", () => {
+      anssiModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === anssiModal) {
+        anssiModal.style.display = "none";
+      }
+    });
+  }
+
   // Navigation carousel RGPD
   let currentSlide = 0;
-  const slides = document.querySelectorAll(".slide");
+  const slides = document.querySelectorAll(".rgpd-slide");
   const updateSlideVisibility = () => {
     slides.forEach((slide, index) => {
       if (slide instanceof HTMLElement) {
@@ -301,6 +356,38 @@ const socials = [
       if (currentSlide > 0) {
         currentSlide--;
         updateSlideVisibility();
+      }
+    });
+  }
+
+  // Navigation carousel ANSSI
+  let currentAnssiSlide = 0;
+  const anssiSlides = document.querySelectorAll(".anssi-slide");
+  const updateAnssiSlideVisibility = () => {
+    anssiSlides.forEach((slide, index) => {
+      if (slide instanceof HTMLElement) {
+        slide.style.display = index === currentAnssiSlide ? "block" : "none";
+      }
+    });
+  };
+
+  const nextAnssiBtn = document.getElementById("nextAnssiBtn");
+  const prevAnssiBtn = document.getElementById("prevAnssiBtn");
+
+  if (nextAnssiBtn) {
+    nextAnssiBtn.addEventListener("click", () => {
+      if (currentAnssiSlide < anssiSlides.length - 1) {
+        currentAnssiSlide++;
+        updateAnssiSlideVisibility();
+      }
+    });
+  }
+
+  if (prevAnssiBtn) {
+    prevAnssiBtn.addEventListener("click", () => {
+      if (currentAnssiSlide > 0) {
+        currentAnssiSlide--;
+        updateAnssiSlideVisibility();
       }
     });
   }
