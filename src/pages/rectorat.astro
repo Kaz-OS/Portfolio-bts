@@ -9,14 +9,14 @@ import Layout from "../layouts/Layout.astro";
       <a class="download" href="/attestations/ERA_TableauDeSynthese.pdf" download>Télécharger ERA_Tableau de synthèse</a>
 
       <div class="attestations">
-        <iframe src="/attestations/ERA_Attestation.pdf"></iframe>
+        <iframe src="/attestations/ERA_Attestation.pdf#view=FitH&toolbar=0&navpanes=0" title="Attestation E5"></iframe>
       </div>
     </div>
 
     <div class="E6">
       <h1>E6</h1>
       <div class="attestations">
-        <iframe src="/attestations/ERA_Attestation2.pdf"></iframe>
+        <iframe src="/attestations/ERA_Attestation2.pdf#view=FitH&toolbar=0&navpanes=0" title="Attestation E6"></iframe>
       </div>
     </div>
   </main>
@@ -72,13 +72,15 @@ import Layout from "../layouts/Layout.astro";
   .attestations iframe {
     width: 100%;
     max-width: 800px;
-    height: 800px;
+    height: 560px;
     border: 1px solid #ccc;
     border-radius: 8px;
+    background: #fff;
+    display: block;
   }
   @media (max-width: 800px) {
     .attestations iframe {
-      height: 400px;
+      height: 430px;
     }
   }
   .E6 p {
