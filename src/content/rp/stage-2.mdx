@@ -1,0 +1,122 @@
+---
+title: "Rapport de Stage 2 — API Symfony (Di-Eureka)"
+date: 2025-07-01
+skills:
+  - B1.1 Patrimoine
+  - B1.2 Incidents
+  - B1.3 Présence web
+  - B1.4 Mode projet
+  - B1.5 Mise à dispo
+  - B1.6 Dev pro
+---
+
+## 1) Contexte
+
+- Objectif: concevoir une API produits en Symfony avec base MariaDB
+- Environnement: Symfony 8, Doctrine, Serializer, cache applicatif, Postman
+- Résultat attendu: endpoint fiable, paginé et exploitable côté front
+
+## 2) Mise en place technique
+
+- Initialisation du projet Symfony 8 via Composer
+- Ajout de la couche sécurité (`symfony/security-bundle`)
+- Mise en place de la base de données avec Docker Compose (MariaDB)
+- Création de la structure API: contrôleurs, entités, fixtures
+
+## 3) Les réalisations
+
+### Screens des réalisations (ordre chronologique)
+
+1. Initialisation du projet Symfony
+
+![Initialisation Symfony 8 avec Composer](/images/stage2-symfony-install.png)
+
+2. Configuration Docker Compose (MariaDB)
+
+![Configuration Docker Compose pour MariaDB](/images/stage2-docker-compose.png)
+
+3. Ajout de la couche sécurité
+
+![Installation du composant sécurité Symfony](/images/stage2-security-bundle.png)
+
+4. Structure API (Controller, Entity, Fixtures)
+
+![Arborescence des fichiers API](/images/stage2-structure-api.png)
+
+5. Développement de l'endpoint `GET /api/produits`
+
+Le point d'entrée principal expose les produits avec pagination, validation de paramètres, cache et sérialisation JSON.
+
+```php
+#[Route('/api/produits', name: 'app_produits_list', methods: ['GET'])]
+public function getAllProducts(
+	ProduitsRepository $produitsRepository,
+	SerializerInterface $serializer,
+	Request $request,
+	TagAwareCacheInterface $cache,
+	\Psr\Log\LoggerInterface $logger
+): JsonResponse {
+	try {
+		$page = (int) $request->query->get('page', 1);
+		$limit = (int) $request->query->get('limit', 50);
+
+		if ($page < 1) $page = 1;
+		if ($limit < 1 || $limit > 500) $limit = 50;
+
+		$contentLength = $request->server->get('CONTENT_LENGTH');
+		if ($contentLength !== null && (int) $contentLength > 1048576) {
+			return new JsonResponse(['error' => 'Payload too large'], Response::HTTP_REQUEST_ENTITY_TOO_LARGE);
+		}
+
+		$idCache = "getAllProduits-" . $page . "-" . $limit;
+
+		$response = $cache->get($idCache, function (ItemInterface $item) use ($produitsRepository, $page, $limit) {
+			$item->tag("produitsCache");
+			$produitsList = $produitsRepository->findAllWithPagination($page, $limit);
+			$total = $produitsRepository->countAll();
+			$totalPages = ceil($total / $limit);
+
+			return [
+				'data' => $produitsList,
+				'pagination' => [
+					'page' => $page,
+					'limit' => $limit,
+					'total' => (int) $total,
+					'totalPages' => (int) $totalPages,
+				],
+			];
+		});
+
+		$jsonResponse = $serializer->serialize($response, 'json');
+		return new JsonResponse($jsonResponse, Response::HTTP_OK, [], true);
+	} catch (\Exception $e) {
+		$logger->error('Error getting products: ' . $e->getMessage());
+		return new JsonResponse(['error' => 'Erreur lors de la récupération des produits'], Response::HTTP_INTERNAL_SERVER_ERROR);
+	}
+}
+```
+
+6. Test Postman de l'endpoint produits
+
+![Test Postman GET /api/produits avec réponse paginée](/images/stage2-postman-produits.png)
+
+## 4) Ce qui est pertinent dans cette implémentation
+
+- Validation défensive des paramètres `page` et `limit` pour éviter les valeurs incohérentes
+- Borne haute sur `limit` pour limiter la charge serveur
+- Cache taggé par combinaison page/limit pour accélérer les lectures répétées
+- Pagination complète (`page`, `limit`, `total`, `totalPages`) directement renvoyée au client
+- Journalisation des erreurs pour faciliter le diagnostic en production
+
+## 5) Retour d'expérience
+
+- J'ai progressé sur la structuration d'une API propre (route, repository, sérialisation)
+- L'ajout du cache m'a permis de mieux comprendre les optimisations côté backend
+- Les tests Postman m'ont aidé à valider rapidement le contrat de réponse
+- Cette réalisation m'a donné une vision plus complète d'un flux API: base, code, sécurité, test
+
+## 6) Améliorations envisagées
+
+- Ajouter des tests fonctionnels automatiques sur les endpoints
+- Introduire une documentation OpenAPI/Swagger
+- Ajouter une invalidation explicite du tag `produitsCache` lors des créations/modifications/suppressions
