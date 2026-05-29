@@ -4,6 +4,32 @@ import Layout from "../../../layouts/Layout.astro";
 export function getStaticPaths() {
   return [
     {
+      params: { id: "gestion-stages" },
+      props: {
+        title: "Application de gestion des stages",
+        image: { src: "/attestations/ERA_FDRP_SLAM2.pdf", caption: "Fiche de réalisation professionnelle" },
+        description: [
+          "Projet réalisé en équipe pendant la deuxième année de BTS SIO.",
+          "Objectif: concevoir une application web Symfony pour centraliser et piloter le suivi des stages.",
+          "Fonctionnalités: authentification, gestion des étudiants, entreprises et stages, CRUD complets, vue consolidée avec filtres, tri et pagination, exports CSV/Excel et historique des modifications.",
+          "Le projet s'appuie sur un cahier des charges fourni par le professeur, avec analyse, maquettes Figma, schémas WinDesign, développement, tests et documentation partagée sur GitHub et Google Drive.",
+        ].join("\n\n"),
+      },
+    },
+    {
+      params: { id: "gestion-voyage" },
+      props: {
+        title: "Application de gestion de voyage",
+        image: { src: "/attestations/ERA_FDRP_SLAM1.pdf", caption: "Fiche de réalisation professionnelle" },
+        description: [
+          "Projet réalisé en équipe de 3 pendant la deuxième année de BTS SIO.",
+          "Objectif: concevoir une application Windows MAUI en C# pour gérer des trajets et des voyages.",
+          "Fonctionnalités: CRUD, paramètres de l'application, authentification, affichage des destinations, préférences des coachs choisies par l'utilisateur, page d'accueil, vue admin et procédures stockées.",
+          "Le projet a été construit à partir d'un cahier des charges fourni par le professeur, avec une phase d'analyse, la création de maquettes Figma, la conception de la base de données sous WinDesign, puis le développement, les tests et la documentation.",
+        ].join("\n\n"),
+      },
+    },
+    {
       params: { id: "validation-w3c" },
       props: {
         title: "Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)",
