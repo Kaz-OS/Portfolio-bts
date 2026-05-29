@@ -4,6 +4,7 @@
   "exclude": ["dist"],
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "ignoreDeprecations": "6.0",
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
