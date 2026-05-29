@@ -113,9 +113,9 @@ const socials = [
         <h3>RGPD (Cliquer pour voir)</h3>
       </article>
 
-      <article class="certif-card">
+      <article class="certif-card" id="pix-card" style="cursor: pointer;">
         <img src="/attestations/Pix.png" alt="Certification Pix — Compétences numériques" loading="lazy" width="512" height="512" />
-        <h3>Pix</h3>
+        <h3>Pix (Cliquer pour voir)</h3>
       </article>
 
       <article class="certif-card" id="anssi-card" style="cursor: pointer;">
@@ -213,6 +213,20 @@ const socials = [
           }
         </div>
         <button class="next" id="nextAnssiBtn">&#10095;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal PIX -->
+  <div id="pix-modal" class="modal">
+    <div class="modal-content">
+      <span class="close" id="close-pix">&times;</span>
+      <div class="carousel-container">
+        <div class="carousel-slides">
+          <div class="pix-slide" style="display: block;">
+            <iframe src="/attestations/certification-pix-20260320.pdf" width="100%" height="600px" style="border: none;"></iframe>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -324,6 +338,27 @@ const socials = [
     window.addEventListener("click", (event) => {
       if (event.target === anssiModal) {
         anssiModal.style.display = "none";
+      }
+    });
+  }
+
+  // Modal PIX : ouverture/fermeture
+  const pixCard = document.getElementById("pix-card");
+  const pixModal = document.getElementById("pix-modal");
+  const closePixModal = document.getElementById("close-pix");
+
+  if (pixCard && pixModal && closePixModal) {
+    pixCard.addEventListener("click", () => {
+      pixModal.style.display = "block";
+    });
+
+    closePixModal.addEventListener("click", () => {
+      pixModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (event) => {
+      if (event.target === pixModal) {
+        pixModal.style.display = "none";
       }
     });
   }
