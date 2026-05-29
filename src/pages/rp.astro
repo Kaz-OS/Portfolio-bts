@@ -1,329 +1,308 @@
 ---
-import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 
-const posts = await getCollection("rp");
+const formationSections = [
+  {
+    title: "Site Cybernews",
+    skills: ["B1.3", "B1.6"],
+    summary: "Présence en ligne et diffusion régulière autour de la cybersécurité.",
+    links: [
+      { label: "Cybernews dynamique + BD", href: "/rp/tp/cybernews-bd" },
+      { label: "Cybernews (collecte & diffusion continue)", href: "/rp/tp/cybernews-veille" },
+    ],
+  },
+  {
+    title: "Gestion des utilisateurs SQL",
+    skills: ["B1.1"],
+    summary: "Gestion des droits et des habilitations avec SQL.",
+    links: [{ label: "Gestion utilisateurs & droits SQL", href: "/rp/tp/gestion-utilisateurs-sql" }],
+  },
+  {
+    title: "GLPI",
+    skills: ["B1.2"],
+    summary: "Mise en place d'un outil de support pour incidents et demandes.",
+    links: [{ label: "Installation GLPI + tickets", href: "/rp/tp/glpi-tickets" }],
+  },
+  {
+    title: "GSK",
+    skills: ["B1.2", "B1.4"],
+    summary: "Analyse des besoins et recommandations matérielles et logicielles.",
+    links: [{ label: "Projet GSK: analyse besoins & recommandations", href: "/rp/tp/gsk" }],
+  },
+  {
+    title: "Site web en équipe",
+    skills: ["B1.3", "B1.4", "B1.5"],
+    summary: "Travail collaboratif, planification, évolution dynamique et mise en ligne.",
+    links: [
+      { label: "Recensement & hébergement site d'équipe", href: "/rp/tp/site-equipe" },
+      { label: "Site d'équipe: statique → dynamique", href: "/rp/tp/site-equipe-dynamique" },
+      { label: "Site d'équipe en ligne", href: "/rp/tp/site-equipe-ligne" },
+      { label: "Trello: tâches, deadlines, statuts", href: "/rp/tp/trello" },
+    ],
+  },
+  {
+    title: "Normes SQL",
+    skills: ["B1.1"],
+    summary: "Bonnes pratiques SQL, structure du code et contrôle de conformité.",
+    links: [
+      { label: "Normes SQL & bonnes pratiques", href: "/rp/tp/norme-sql" },
+      { label: "Validation W3C pages HTML/CSS", href: "/rp/tp/validation-w3c" },
+      { label: "Structuration sémantique & accessibilité", href: "/rp/tp/structuration-semantique" },
+      { label: "Morpion console C#", href: "/rp/tp/morpion-csharp" },
+    ],
+  },
+  {
+    title: "Portfolio",
+    skills: ["B1.5", "B1.6"],
+    summary: "Mise à disposition en ligne et valorisation du parcours.",
+    links: [{ label: "Portfolio BTS SIO - Développement avec Astro", href: "/rp/tp/portfolio" }],
+  },
+  {
+    title: "LinkedIn et développement pro",
+    skills: ["B1.6"],
+    summary: "Présence professionnelle, veille, certifications et projection métier.",
+    links: [
+      { label: "Profil LinkedIn", href: "/rp/tp/linkedin" },
+      { label: "Score Pix", href: "/rp/tp/pix" },
+      { label: "MOOC ANSSI", href: "/rp/tp/mooc-anssi" },
+      { label: "Certifications RGPD", href: "/rp/tp/rgpd" },
+      { label: "Étude référentiel & fiche métier", href: "/rp/tp/etude-referentiel" },
+      { label: "Analyse sanctions d'entreprise", href: "/rp/tp/analyse-sanctions" },
+    ],
+  },
+  {
+    title: "Veille technologique",
+    skills: ["B1.6"],
+    summary: "Recherche, synthèse et diffusion d'informations techniques.",
+    links: [{ label: "Veille techno (synthèses mensuelles)", href: "/rp/tp/veille-techno" }],
+  },
+];
+
+const stage1Section = {
+  title: "Stage 1",
+  skills: ["B1.1", "B1.3", "B1.4", "B1.6"],
+  summary: "Découverte du contexte pro avec un site vitrine et du travail structuré en équipe.",
+  href: "/rp/stage-1",
+  highlights: ["Application vitrine", "Formulaire serveur", "Organisation du projet"],
+};
+
+const stage2Section = {
+  title: "Stage 2",
+  skills: ["B1.1", "B1.2", "B1.3", "B1.4", "B1.6"],
+  summary: "Montée en autonomie sur une API Symfony avec cache, pagination et sérialisation.",
+  href: "/rp/stage-2",
+  highlights: ["API produits", "Cache applicatif", "Tests Postman"],
+};
 ---
 
 <Layout>
-  <section class="competences">
-    <h1>Réalisation en cours de formation</h1>
+  <main class="rp-page">
+    <section class="hero">
+      <p class="eyebrow">Réalisations professionnelles</p>
+      <h1>RP organisées par thème</h1>
+    </section>
 
-    <!-- B1.1 -->
-    <div class="competence-block">
-      <h2>B1.1 Gérer le patrimoine informatique</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head">
-            <h3>Référentiels / Normes</h3>
+    <section class="section-block">
+      <h2>Formation</h2>
+      <div class="section-grid">
+        {
+          formationSections.map((section) => (
+            <article class="topic-card">
+              <div class="topic-head">
+                <h3>{section.title}</h3>
+                <p class="skill-list">{section.skills.join(", ")}</p>
+              </div>
+              <p class="summary">{section.summary}</p>
+              <ul class="topic-links">
+                {section.links.map((link) => (
+                  <li>
+                    <a href={link.href}>{link.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2>Stage 1</h2>
+      <div class="section-grid stage-grid">
+        <article class="stage-card">
+          <div class="topic-head">
+            <h3>{stage1Section.title}</h3>
+            <p class="skill-list">{stage1Section.skills.join(", ")}</p>
           </div>
-          <ul class="sub">
-            <li><a href="/rp/tp/validation-w3c">Validation W3C pages HTML/CSS (captures) (16/09/24 → 30/09/24)</a></li>
-            <li><a href="/rp/tp/structuration-semantique">Structuration sémantique & accessibilité d'une première page</a></li>
-            <li><a href="/rp/tp/morpion-csharp">Morpion console C# (conventions nommage) (dès 25/11/24)</a></li>
-            <li><a href="/rp/tp/norme-sql">Normes SQL & bonnes pratiques</a></li>
-            <li><a href="/rp/stage-1">site vitrine (présenter services + améliorer visibilité)</a></li>
+          <p class="summary">{stage1Section.summary}</p>
+          <ul class="pill-list">
+            {stage1Section.highlights.map((item) => <li>{item}</li>)}
           </ul>
-        </li>
-        <li>
-          <div class="item-head">
-            <h3>Habilitations</h3>
+          <a class="btn" href={stage1Section.href}>Voir le rapport</a>
+        </article>
+      </div>
+    </section>
+
+    <section class="section-block">
+      <h2>Stage 2</h2>
+      <div class="section-grid stage-grid">
+        <article class="stage-card">
+          <div class="topic-head">
+            <h3>{stage2Section.title}</h3>
+            <p class="skill-list">{stage2Section.skills.join(", ")}</p>
           </div>
-          <ul class="sub">
-            <li><a href="/rp/tp/gestion-utilisateurs-sql">Gestion utilisateurs & droits SQL (REVOKE / GRANT) (26/02/25 → 03/03/25)</a></li>
-            <li><a href="/rp/stage-2">API produits en Symfony avec base MariaDB</a></li>
+          <p class="summary">{stage2Section.summary}</p>
+          <ul class="pill-list">
+            {stage2Section.highlights.map((item) => <li>{item}</li>)}
           </ul>
-        </li>
-      </ul>
-    </div>
-
-    <div class="competence-block">
-      <h2>B1.2 Répondre aux incidents et aux demandes d'assistance et d'évolution</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head"><h3>Gestion des tickets</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/glpi-tickets">Installation GLPI (LAMP) + création & suivi de tickets (17/03/25 → 31/03/25)</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- B1.3 -->
-    <div class="competence-block">
-      <h2>B1.3 Développer la présence en ligne de l'organisation</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head"><h3>Évolution des sites</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/cybernews-bd">Cybernews dynamique + BD (16/10/24 → 30/06/25)</a></li>
-            <li><a href="/rp/tp/site-equipe-dynamique">Site d'équipe: statique → dynamique (04/11/24 → 24/01/25)</a></li>
-            <li><a href="/rp/stage-1">site vitrine (présenter services + améliorer visibilité)</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- B1.4 -->
-    <div class="competence-block">
-      <h2>B1.4 Travailler en mode projet</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head"><h3>Planification</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/site-equipe">Projet site d'équipe: planification & suivi avec Trello (04/11/24 → 24/01/25)</a></li>
-            <li><a href="/rp/stage-1">site vitrine (présenter services + améliorer visibilité)</a></li>
-            <li><a href="/rp/stage-2">API produits en Symfony avec base MariaDB</a></li>
-          </ul>
-        </li>
-        <li>
-          <div class="item-head"><h3>Gestion de projet</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/gsk">Projet GSK: analyse besoins & recommandations matériel/logiciel</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- B1.5 -->
-    <div class="competence-block">
-      <h2>B1.5 Mettre à disposition des utilisateurs un service informatique</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head"><h3>Déploiement</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/site-equipe-ligne">Site d'équipe en ligne (04/11/24 → 24/01/25)</a></li>
-            <li><a href="/rp/tp/deploiement-cible">Exercice de déploiement ciblé (05/03/25)</a></li>
-            <li><a href="/rp/tp/portfolio">Portfolio BTS SIO en ligne</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-
-    <!-- B1.6 -->
-    <div class="competence-block">
-      <h2>B1.6 Organiser son développement professionnel</h2>
-      <ul class="line-list">
-        <li>
-          <div class="item-head"><h3>Apprentissage</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/pix">Score Pix: 500 pts</a></li>
-            <li><a href="/rp/tp/mooc-anssi">MOOC ANSSI modules 1–5</a></li>
-            <li><a href="/rp/tp/rgpd">Certifications RGPD</a></li>
-          </ul>
-        </li>
-        <li>
-          <div class="item-head"><h3>Projet pro</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/linkedin">Profil LinkedIn</a></li>
-            <li><a href="/rp/tp/etude-referentiel">Étude référentiel & fiche métier</a></li>
-            <li><a href="/rp/tp/analyse-sanctions">Analyse sanctions d'entreprise</a></li>
-            <li><a href="/rp/tp/portfolio">Portfolio BTS SIO</a></li>
-            <li><a href="/rp/stage-1">site vitrine (présenter services + améliorer visibilité)</a></li>
-            <li><a href="/rp/stage-2">API produits en Symfony avec base MariaDB</a></li>
-          </ul>
-        </li>
-        <li>
-          <div class="item-head"><h3>Veille & diffusion</h3></div>
-          <ul class="sub">
-            <li><a href="/rp/tp/veille-techno">Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)</a></li>
-            <li><a href="/rp/tp/cybernews-veille">Cybernews (collecte & diffusion continue) (16/10/24 → 30/06/25)</a></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
-  </section>
-  <section class="stages">
-    <h1>Stages</h1>
-    <div class="stage-grid">
-      <article class="stage-card">
-        <h2>Stage 1</h2>
-        <p>Découverte de l'environnement professionnel, premières missions encadrées et livrables concrets.</p>
-        <a class="btn" href="/rp/stage-1">Voir les réalisations du Stage 1</a>
-      </article>
-      <article class="stage-card" id="stage-2">
-        <h2>Stage 2</h2>
-        <p>Montée en autonomie, approfondissement technique et contribution à un projet plus large.</p>
-        <a class="btn" href="/rp/stage-2">Voir les réalisations du Stage 2</a>
-      </article>
-    </div>
-  </section>
+          <a class="btn" href={stage2Section.href}>Voir le rapport</a>
+        </article>
+      </div>
+    </section>
+  </main>
 </Layout>
 
 <style>
-  .stages {
-    max-width: 1100px;
-    margin: 2.2rem auto 0;
+  .rp-page {
+    max-width: 1180px;
+    margin: 2rem auto 4rem;
     padding: 0 1rem;
   }
-  .stages > h1 {
+
+  .hero {
     text-align: center;
-    font-size: clamp(1.4rem, 2vw, 2rem);
-    margin: 0 0 1.2rem;
-    letter-spacing: 0.5px;
+    margin-bottom: 2rem;
   }
-  .stage-grid {
+
+  .eyebrow {
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-size: 0.76rem;
+    color: #6b7280;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-size: clamp(1.8rem, 3vw, 2.7rem);
+  }
+
+  .intro {
+    max-width: 760px;
+    margin: 0.75rem auto 0;
+    color: #4b5563;
+    line-height: 1.6;
+  }
+
+  .section-block + .section-block {
+    margin-top: 2rem;
+  }
+
+  .section-block > h2 {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 1.6vw, 1.6rem);
+  }
+
+  .section-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1rem;
   }
+
+  .topic-card,
   .stage-card {
-    border: 1px solid #e5e5e5;
-    border-radius: 10px;
-    padding: 1rem;
+    border: 1px solid #e5e7eb;
+    border-radius: 18px;
     background: #fff;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+    padding: 1.15rem;
+    box-shadow: 0 8px 24px rgba(15, 23, 42, 0.04);
   }
-  .stage-card h2 {
-    margin: 0 0 0.3rem;
-    font-size: clamp(1rem, 1.2vw, 1.25rem);
+
+  .topic-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.75rem;
+    flex-wrap: wrap;
   }
-  .stage-card p {
-    margin: 0 0 0.8rem;
-    font-size: clamp(0.8rem, 0.85vw, 0.95rem);
-    opacity: 0.9;
+
+  .topic-head h3 {
+    margin: 0;
+    font-size: 1.05rem;
   }
+
+  .skill-list {
+    margin: 0;
+    font-size: 0.84rem;
+    color: #6b7280;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 0.25rem 0.55rem;
+    border-radius: 999px;
+  }
+
+  .summary {
+    margin: 0.75rem 0 0.9rem;
+    color: #374151;
+    line-height: 1.55;
+  }
+
+  .topic-links {
+    margin: 0;
+    padding-left: 1rem;
+    display: grid;
+    gap: 0.45rem;
+  }
+
+  .topic-links a {
+    color: #0f172a;
+    text-decoration: none;
+    border-bottom: 1px dotted #cbd5e1;
+  }
+
+  .topic-links a:hover {
+    border-bottom-style: solid;
+  }
+
+  .stage-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pill-list {
+    margin: 0 0 1rem;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .pill-list li {
+    background: #f3f4f6;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+    border-radius: 999px;
+    padding: 0.35rem 0.6rem;
+    font-size: 0.82rem;
+  }
+
   .btn {
     display: inline-block;
     background: #111827;
     color: #fff;
     text-decoration: none;
-    padding: 0.45rem 0.75rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
+    padding: 0.55rem 0.9rem;
+    border-radius: 10px;
+    font-size: 0.9rem;
   }
+
   .btn:hover {
     background: #0b1220;
   }
-  .tag {
-    display: inline-block;
-    font-size: 0.75rem;
-    background: #f3f4f6;
-    color: #6b7280;
-    padding: 0.25rem 0.5rem;
-    border-radius: 999px;
-    border: 1px solid #e5e7eb;
-  }
 
-  .competences {
-    max-width: 1100px;
-    margin: 3rem auto 4rem;
-    padding: 0 1rem;
-  }
-  .competences > h1 {
-    text-align: center;
-    font-size: clamp(1.4rem, 2vw, 2rem);
-    margin: 0 0 1.2rem;
-    letter-spacing: 0.5px;
-  }
-  .competence-block + .competence-block {
-    margin-top: 2.4rem;
-  }
-  .competence-block h2 {
-    font-size: clamp(1.05rem, 1.15vw, 1.35rem);
-    margin: 0 0 0.9rem;
-    letter-spacing: 0.4px;
-    position: relative;
-    padding-left: 0.6rem;
-  }
-  .competence-block h2:before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 0.15rem;
-    bottom: 0.15rem;
-    width: 3px;
-    background: #bbb;
-    border-radius: 2px;
-  }
-
-  /* Timeline list */
-  .line-list {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 0.35rem;
-    position: relative;
-  }
-  .line-list > li {
-    position: relative;
-    padding: 0.55rem 0 0.65rem 1.25rem;
-    border-left: 2px solid #d0d0d0;
-  }
-  .line-list > li:last-child {
-    border-image: linear-gradient(#d0d0d0, rgba(208, 208, 208, 0)) 1;
-  }
-  .line-list > li::before {
-    content: "";
-    position: absolute;
-    left: -6px;
-    top: 0.95rem;
-    width: 10px;
-    height: 10px;
-    background: #fff;
-    border: 2px solid #b5b5b5;
-    border-radius: 50%;
-    box-shadow: 0 0 0 2px #fff;
-    transition: background 0.25s;
-  }
-  .line-list > li:hover::before {
-    background: #b5b5b5;
-  }
-  .line-list > li:hover {
-    background: linear-gradient(90deg, #f5f5f5 0%, #fafafa 60%, transparent);
-    border-left-color: #bbb;
-  }
-
-  .item-head {
-    display: flex;
-    align-items: baseline;
-    gap: 0.6rem;
-    flex-wrap: wrap;
-  }
-  .item-head h3 {
-    margin: 0;
-    font-size: clamp(0.78rem, 0.8vw, 0.95rem);
-    font-weight: 600;
-    letter-spacing: 0.3px;
-  }
-
-  .sub {
-    list-style: disc;
-    margin: 0.3rem 0 0;
-    padding-left: 1.05rem;
-    font-size: clamp(0.63rem, 0.63vw + 0.42rem, 0.8rem);
-    line-height: 1.28;
-  }
-  .sub li + li {
-    margin-top: 0.25rem;
-  }
-  .sub a {
-    color: inherit;
-    text-decoration: none;
-    border-bottom: 1px dotted #999;
-    transition:
-      border-bottom-color 0.2s,
-      color 0.2s;
-  }
-  .sub a:hover {
-    color: #000;
-    border-bottom-color: #000;
-  }
-
-  /* Light separator feel */
-  .line-list > li + li {
-    margin-top: 0.1rem;
-  }
-
-  /* Responsive tightening */
-  @media (max-width: 640px) {
-    .line-list > li {
-      padding: 0.55rem 0 0.65rem 1.05rem;
-    }
-    .line-list > li::before {
-      left: -7px;
-    }
-    .sub {
-      padding-left: 0.95rem;
+  @media (max-width: 900px) {
+    .section-grid {
+      grid-template-columns: 1fr;
     }
   }
 </style>
