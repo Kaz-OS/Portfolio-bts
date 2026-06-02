@@ -236,8 +236,8 @@ const socials = [
     // Drag horizontal (souris + tactile + pointer)
     const carousel = document.getElementById("skills-carousel");
     let isDown = false;
-    let startX: number | undefined;
-    let scrollStart: number | undefined;
+    let startX = 0;
+    let scrollStart = 0;
 
     const endDrag = () => {
       isDown = false;
@@ -256,7 +256,7 @@ const socials = [
       });
 
       carousel.addEventListener("pointermove", (e) => {
-        if (!isDown || startX === undefined || scrollStart === undefined) return;
+        if (!isDown) return;
         const dx = e.clientX - startX;
         carousel.scrollLeft = scrollStart - dx;
       });
@@ -312,11 +312,16 @@ const socials = [
 
     if (rgpdCard && rgpdModal && closeRgpdModal) {
       rgpdCard.addEventListener("click", () => {
+        console.debug('RGPD card clicked, opening modal');
         rgpdModal.style.display = "block";
+        rgpdModal.setAttribute('aria-hidden', 'false');
+        rgpdModal.classList.add('open');
       });
 
       closeRgpdModal.addEventListener("click", () => {
         rgpdModal.style.display = "none";
+        rgpdModal.setAttribute('aria-hidden', 'true');
+        rgpdModal.classList.remove('open');
       });
 
       window.addEventListener("click", (event) => {
@@ -793,6 +798,10 @@ const socials = [
     height: 100%;
     overflow: auto;
     background-color: rgba(0, 0, 0, 0.8);
+  }
+
+  .modal.open {
+    display: block;
   }
 
   .modal-content {
