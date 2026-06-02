@@ -10,10 +10,38 @@ export function getStaticPaths() {
         image: { src: "/attestations/ERA_FDRP_SLAM2.pdf", caption: "Fiche de réalisation professionnelle" },
         description: [
           "Projet réalisé en équipe pendant la deuxième année de BTS SIO.",
-          "Objectif: concevoir une application web Symfony pour centraliser et piloter le suivi des stages.",
-          "Fonctionnalités: authentification, gestion des étudiants, entreprises et stages, CRUD complets, vue consolidée avec filtres, tri et pagination, exports CSV/Excel et historique des modifications.",
-          "Le projet s'appuie sur un cahier des charges fourni par le professeur, avec analyse, maquettes Figma, schémas WinDesign, développement, tests et documentation partagée sur GitHub et Google Drive.",
+          "Cette fiche reprend directement le TP présenté dans le PDF de réalisation professionnelle et le détaille sur la page.",
         ].join("\n\n"),
+        bodySections: [
+          {
+            title: "Contexte du projet",
+            paragraphs: [
+              "Le projet consiste à développer une application web Symfony pour centraliser, sécuriser et piloter le suivi des stages de l'équipe pédagogique en BTS SIO.",
+              "La réalisation a été menée en équipe, à partir d'un cahier des charges fourni par le professeur.",
+            ],
+          },
+          {
+            title: "Fonctionnalités demandées",
+            paragraphs: [
+              "Inscription, authentification et déconnexion.",
+              "Affichage et consultation des étudiants, des entreprises et des stages, avec détails de chaque fiche.",
+              "CRUD des étudiants, des entreprises, des stages et des enseignants / utilisateurs.",
+              "Mise à jour des statuts, tableau consolidé de suivi et de visite avec filtres, tri et pagination.",
+              "Exports CSV / Excel de la vue filtrée et historique des modifications clés.",
+            ],
+          },
+          {
+            title: "Ressources utilisées",
+            paragraphs: ["Visual Studio, Trello, Figma, Google Drive, Discord, GitHub, SQL Server Management Studio, ChatGPT, WinDesign et Classroom."],
+          },
+          {
+            title: "Productions et documentation",
+            paragraphs: [
+              "Le projet est hébergé sur un dépôt GitHub accessible à l'équipe pédagogique.",
+              "La documentation technique regroupe le cahier des charges, les schémas UML réalisés sous WinDesign, les maquettes Figma et les différentes versions suivies avec Git.",
+            ],
+          },
+        ],
       },
     },
     {
@@ -22,11 +50,60 @@ export function getStaticPaths() {
         title: "Application de gestion de voyage",
         image: { src: "/attestations/ERA_FDRP_SLAM1.pdf", caption: "Fiche de réalisation professionnelle" },
         description: [
-          "Projet réalisé en équipe de 3 pendant la deuxième année de BTS SIO.",
-          "Objectif: concevoir une application Windows MAUI en C# pour gérer des trajets et des voyages.",
-          "Fonctionnalités: CRUD, paramètres de l'application, authentification, affichage des destinations, préférences des coachs choisies par l'utilisateur, page d'accueil, vue admin et procédures stockées.",
-          "Le projet a été construit à partir d'un cahier des charges fourni par le professeur, avec une phase d'analyse, la création de maquettes Figma, la conception de la base de données sous WinDesign, puis le développement, les tests et la documentation.",
+          "Projet réalisé en équipe pendant la deuxième année de BTS SIO.",
+          "Cette fiche reprend directement le contenu du PDF de réalisation professionnelle pour présenter le TP sur la page.",
         ].join("\n\n"),
+        bodySections: [
+          {
+            title: "Contexte du projet",
+            paragraphs: [
+              "Le projet vise à développer une application Windows MAUI en C# pour gérer des trajets et des voyages.",
+              "La réalisation a été conduite en équipe de 3, à partir d'un cahier des charges fourni par le professeur.",
+            ],
+          },
+          {
+            title: "Étapes du projet",
+            paragraphs: [
+              "Analyse des besoins à partir du cahier des charges.",
+              "Création de maquettes avec Figma.",
+              "Conception de la base de données sous WinDesign, avec MCD et MPD.",
+              "Développement des fonctionnalités principales, puis tests manuels et corrections de bugs.",
+              "Documentation du projet et mise en ligne sur GitHub.",
+            ],
+          },
+          {
+            title: "Fonctionnalités de l'application",
+            paragraphs: [
+              "CRUD.",
+              "Paramètres de l'application.",
+              "Authentification.",
+              "Affichage des destinations.",
+              "Préférences des coachs choisies par l'utilisateur.",
+              "Page d'accueil.",
+              "Vue admin.",
+              "Procédures stockées.",
+            ],
+          },
+          {
+            title: "Productions et schémas réalisés",
+            paragraphs: [
+              "Application Windows fonctionnelle, base de données relationnelle, documentation technique complète, diagrammes UML et présentation du projet.",
+              "Schémas réalisés: MCD et MPD, use case général, use case détaillé, wireframes Figma et charte graphique.",
+            ],
+          },
+          {
+            title: "Ressources utilisées",
+            paragraphs: ["Visual Studio, Trello, Figma, Google Drive, Discord, GitHub, SQL Server Management Studio, ChatGPT, WinDesign et Classroom."],
+          },
+          {
+            title: "Fonctionnement de l'application",
+            paragraphs: [
+              "L'application démarre par une page de connexion permettant à l'utilisateur de se connecter avec un login et un mot de passe.",
+              "Un administrateur dispose de fonctionnalités supplémentaires pour ajouter, modifier ou supprimer un voyage, un utilisateur ou un transport.",
+              "L'utilisateur peut définir des préférences en choisissant des voyages.",
+            ],
+          },
+        ],
       },
     },
     {
@@ -225,7 +302,7 @@ L'objectif est de documenter le parcours professionnel, fournir l'accès aux rap
       params: { id: "veille-techno" },
       props: {
         title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)",
-        image: { src: "/tp/nosql-types.png", caption: "Les différents types de bases de données NoSQL" },
+        image: { src: "/tp/nosql-types.svg", caption: "Les différents types de bases de données NoSQL" },
         description: `Dans le cadre de mon développement professionnel, j'ai mis en place une veille technologique sur le NoSQL avec production de synthèses mensuelles. Cette démarche me permet de rester informé des évolutions technologiques et d'identifier les tendances émergentes dans mon domaine de compétence.`,
       },
     },
