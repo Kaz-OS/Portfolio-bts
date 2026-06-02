@@ -81,13 +81,43 @@ Le code respecte également les bonnes pratiques : noms descriptifs, éviter les
     {
       params: { id: "site-equipe" },
       props: {
-        title: "Recensement & hébergement site d'équipe (04/11/24 → 24/01/25)",
+        title: "Site d'équipe (04/11/24 → 24/01/25)",
         images: [
           { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
           { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
           { src: "/tp/bdEH.png", caption: "Base de données du site" },
         ],
-        description: `Ce projet illustre le travail en mode projet avec planification rigoureuse. Nous avons utilisé Trello pour organiser les tâches, définir les deadlines et suivre l'avancement du projet. Cette méthodologie a permis une collaboration efficace et le respect des délais fixés.`,
+        description: "Cette fiche regroupe l'ensemble des travaux menés sur le site d'équipe: recensement, hébergement, évolution vers une version dynamique et mise en ligne.",
+        bodySections: [
+          {
+            title: "Recensement & hébergement",
+            paragraphs: [
+              "Le projet a commencé par le recensement du besoin et l'organisation du site d'équipe. Nous avons posé la structure des contenus, les responsabilités de chacun et les contraintes d'hébergement.",
+              "Les échanges ont été suivis dans Trello pour répartir les tâches, fixer les échéances et conserver une vue claire de l'avancement.",
+            ],
+          },
+          {
+            title: "Évolution statique → dynamique",
+            paragraphs: [
+              "Le site a ensuite évolué vers une version dynamique afin de simplifier la gestion du contenu et de préparer l'intégration des données.",
+              "Cette étape a permis de faire le lien entre la structure initiale du site et une version plus souple, capable de s'adapter à de nouveaux contenus.",
+            ],
+          },
+          {
+            title: "Mise en ligne",
+            paragraphs: [
+              "La dernière étape a consisté à mettre le site en ligne et à vérifier son fonctionnement en production.",
+              "Cette phase a nécessité la configuration du serveur web, le transfert des fichiers et les contrôles finaux avant la diffusion aux utilisateurs.",
+            ],
+          },
+          {
+            title: "Organisation du projet",
+            paragraphs: [
+              "Trello a servi de support principal pour suivre les tâches, les deadlines et les statuts.",
+              "Cette organisation a facilité le travail en équipe et la coordination entre les différentes étapes du projet.",
+            ],
+          },
+        ],
       },
     },
     {
@@ -107,19 +137,6 @@ Le code respecte également les bonnes pratiques : noms descriptifs, éviter les
       },
     },
     {
-      params: { id: "site-equipe-dynamique" },
-      props: {
-        title: "Site d'équipe: statique → dynamique (04/11/24 → 24/01/25)",
-        images: [
-          { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
-          { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
-          { src: "/tp/bdEH.png", caption: "Base de données du site" },
-        ],
-        description: `Pour développer la présence en ligne, j'ai transformé le site d'équipe en version dynamique avec intégration d'une base de données. Cette évolution permet une gestion simplifiée du contenu et offre de nouvelles fonctionnalités interactives aux utilisateurs.`,
-      },
-    },
-    { params: { id: "trello" }, props: { title: "Trello: tâches, deadlines, statuts (04/11/24 → 24/01/25)", image: { src: "/tp/TrelloEH.png", caption: "Tableau Trello" } } },
-    {
       params: { id: "gsk" },
       props: {
         title: "Projet GSK: analyse besoins & recommandations matériel/logiciel",
@@ -129,18 +146,6 @@ Le code respecte également les bonnes pratiques : noms descriptifs, éviter les
 J'ai participé à la sélection du matériel et à l'élaboration d'une présentation détaillant nos recommandations et la méthodologie suivie pour répondre aux exigences du client.
 
 La coordination de l'équipe a été facilitée par l'utilisation de Trello, qui nous a permis de structurer la répartition des tâches et d'assurer un suivi régulier de l'avancement du projet.`,
-      },
-    },
-    {
-      params: { id: "site-equipe-ligne" },
-      props: {
-        title: "Site d'équipe en ligne (04/11/24 → 24/01/25)",
-        images: [
-          { src: "/tp/EH_Focus.png", caption: "Page d'accueil du site d'équipe" },
-          { src: "/tp/TrelloEH.png", caption: "Tableau Trello du projet" },
-          { src: "/tp/bdEH.png", caption: "Base de données du site" },
-        ],
-        description: `J'ai assuré le déploiement et la mise en ligne du site d'équipe, garantissant sa disponibilité pour les utilisateurs. Cette mise à disposition impliquait la configuration du serveur web, le transfert des fichiers et la vérification du bon fonctionnement en production.`,
       },
     },
     {
@@ -220,6 +225,7 @@ L'objectif est de documenter le parcours professionnel, fournir l'accès aux rap
       params: { id: "veille-techno" },
       props: {
         title: "Veille techno (synthèses mensuelles) (05/02/25 → 02/03/25)",
+        image: { src: "/tp/nosql-types.png", caption: "Les différents types de bases de données NoSQL" },
         description: `Dans le cadre de mon développement professionnel, j'ai mis en place une veille technologique sur le NoSQL avec production de synthèses mensuelles. Cette démarche me permet de rester informé des évolutions technologiques et d'identifier les tendances émergentes dans mon domaine de compétence.`,
       },
     },
@@ -233,7 +239,7 @@ L'objectif est de documenter le parcours professionnel, fournir l'accès aux rap
   ];
 }
 
-const { title, image, images, description } = Astro.props;
+const { title, image, images, description, bodySections } = Astro.props;
 
 // Normalisation des images pour gérer les formats string et object
 const normalizeImages = () => {
@@ -278,7 +284,25 @@ const allImages = normalizeImages();
 
       <div class="description">
         <h2>Description</h2>
-        {description ? <div class="description-content" set:html={description.replace(/\n/g, "<br />")} /> : <p>Détails de la réalisation à compléter...</p>}
+        {
+          bodySections && bodySections.length > 0 ? (
+            <>
+              {description ? <p class="description-content intro">{description}</p> : null}
+              {bodySections.map((section) => (
+                <section class="detail-section">
+                  <h3>{section.title}</h3>
+                  {section.paragraphs.map((paragraph) => (
+                    <p>{paragraph}</p>
+                  ))}
+                </section>
+              ))}
+            </>
+          ) : description ? (
+            <div class="description-content" set:html={description.replace(/\n/g, "<br />")} />
+          ) : (
+            <p>Détails de la réalisation à compléter...</p>
+          )
+        }
       </div>
     </div>
   </main>
@@ -368,6 +392,20 @@ const allImages = normalizeImages();
   .description p {
     color: #4b5563;
     line-height: 1.6;
+  }
+
+  .intro {
+    margin-top: 0;
+  }
+
+  .detail-section + .detail-section {
+    margin-top: 1.25rem;
+  }
+
+  .detail-section h3 {
+    font-size: 1rem;
+    margin-bottom: 0.6rem;
+    color: #1f2937;
   }
 
   .description-content {
