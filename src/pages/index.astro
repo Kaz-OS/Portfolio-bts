@@ -312,16 +312,16 @@ const socials = [
 
     if (rgpdCard && rgpdModal && closeRgpdModal) {
       rgpdCard.addEventListener("click", () => {
-        console.debug('RGPD card clicked, opening modal');
+        console.debug("RGPD card clicked, opening modal");
         rgpdModal.style.display = "block";
-        rgpdModal.setAttribute('aria-hidden', 'false');
-        rgpdModal.classList.add('open');
+        rgpdModal.setAttribute("aria-hidden", "false");
+        rgpdModal.classList.add("open");
       });
 
       closeRgpdModal.addEventListener("click", () => {
         rgpdModal.style.display = "none";
-        rgpdModal.setAttribute('aria-hidden', 'true');
-        rgpdModal.classList.remove('open');
+        rgpdModal.setAttribute("aria-hidden", "true");
+        rgpdModal.classList.remove("open");
       });
 
       window.addEventListener("click", (event) => {
