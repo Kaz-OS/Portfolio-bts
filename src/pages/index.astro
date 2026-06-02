@@ -186,7 +186,7 @@ const socials = [
           {
             rgpdUrls.map((url, index) => (
               <div class="rgpd-slide" data-index={index} style={index === 0 ? "display: block;" : "display: none;"}>
-                <iframe src={url} width="100%" height="600px" style="border: none;" />
+                <iframe data-src={url} width="100%" height="600px" style="border: none;" />
               </div>
             ))
           }
@@ -371,13 +371,32 @@ const socials = [
     // Navigation carousel RGPD
     let currentSlide = 0;
     const slides = document.querySelectorAll(".rgpd-slide");
+    const ensureSlideLoaded = (slide) => {
+      if (!(slide instanceof HTMLElement)) return;
+
+      const iframe = slide.querySelector("iframe");
+      if (iframe instanceof HTMLIFrameElement && !iframe.src) {
+        const source = iframe.dataset.src;
+
+        if (source) {
+          iframe.src = source;
+        }
+      }
+    };
+
     const updateSlideVisibility = () => {
       slides.forEach((slide, index) => {
         if (slide instanceof HTMLElement) {
           slide.style.display = index === currentSlide ? "block" : "none";
+
+          if (index === currentSlide) {
+            ensureSlideLoaded(slide);
+          }
         }
       });
     };
+
+    updateSlideVisibility();
 
     const nextBtn = document.getElementById("nextBtn");
     const prevBtn = document.getElementById("prevBtn");
