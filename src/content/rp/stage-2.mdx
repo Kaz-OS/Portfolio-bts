@@ -101,15 +101,12 @@ public function getAllProducts(
 
 ## 4) Ce qui est pertinent dans cette implémentation
 
-- Validation défensive des paramètres `page` et `limit` pour éviter les valeurs incohérentes
-- Borne haute sur `limit` pour limiter la charge serveur
-- Cache taggé par combinaison page/limit pour accélérer les lectures répétées
 - Pagination complète (`page`, `limit`, `total`, `totalPages`) directement renvoyée au client
 - Journalisation des erreurs pour faciliter le diagnostic en production
 
 ## 5) Retour d'expérience
 
-- J'ai progressé sur la structuration d'une API propre (route, repository, sérialisation)
+- J'ai progressé sur la structuration d'une API propre (route, sérialisation)
 - L'ajout du cache m'a permis de mieux comprendre les optimisations côté backend
 - Les tests Postman m'ont aidé à valider rapidement le contrat de réponse
 - Cette réalisation m'a donné une vision plus complète d'un flux API: base, code, sécurité, test
@@ -117,5 +114,4 @@ public function getAllProducts(
 ## 6) Améliorations envisagées
 
 - Ajouter des tests fonctionnels automatiques sur les endpoints
-- Introduire une documentation OpenAPI/Swagger
-- Ajouter une invalidation explicite du tag `produitsCache` lors des créations/modifications/suppressions
+- Introduire une documentation OpenAPI
