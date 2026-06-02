@@ -232,199 +232,201 @@ const socials = [
 </Layout>
 
 <script>
-  // Drag horizontal (souris + tactile + pointer)
-  const carousel = document.getElementById("skills-carousel");
-  let isDown = false;
-  let startX: number | undefined;
-  let scrollStart: number | undefined;
+  document.addEventListener("DOMContentLoaded", () => {
+    // Drag horizontal (souris + tactile + pointer)
+    const carousel = document.getElementById("skills-carousel");
+    let isDown = false;
+    let startX: number | undefined;
+    let scrollStart: number | undefined;
 
-  const endDrag = () => {
-    isDown = false;
-    if (carousel) {
-      carousel.classList.remove("dragging");
-    }
-  };
-
-  if (carousel) {
-    carousel.addEventListener("pointerdown", (e) => {
-      isDown = true;
-      startX = e.clientX;
-      scrollStart = carousel.scrollLeft;
-      carousel.classList.add("dragging");
-      carousel.setPointerCapture(e.pointerId);
-    });
-
-    carousel.addEventListener("pointermove", (e) => {
-      if (!isDown || startX === undefined || scrollStart === undefined) return;
-      const dx = e.clientX - startX;
-      carousel.scrollLeft = scrollStart - dx;
-    });
-
-    ["pointerup", "pointercancel", "pointerleave"].forEach((evt) => carousel.addEventListener(evt, endDrag));
-
-    // Molette shift pour scroll horizontal (bonus)
-    carousel.addEventListener(
-      "wheel",
-      (e) => {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          carousel.scrollLeft += e.deltaY;
-          e.preventDefault();
-        }
-      },
-      { passive: false },
-    );
-
-    // Navigation clavier (flèches)
-    carousel.addEventListener("keydown", (e) => {
-      const step = 120;
-      if (e.key === "ArrowRight") {
-        carousel.scrollBy({ left: step, behavior: "smooth" });
+    const endDrag = () => {
+      isDown = false;
+      if (carousel) {
+        carousel.classList.remove("dragging");
       }
-      if (e.key === "ArrowLeft") {
-        carousel.scrollBy({ left: -step, behavior: "smooth" });
-      }
-    });
+    };
 
-    const hint = document.getElementById("drag-hint");
     if (carousel) {
-      const hideHint = () => hint && hint.classList.add("hide");
-      carousel.addEventListener("pointerdown", hideHint, { once: true });
+      carousel.addEventListener("pointerdown", (e) => {
+        isDown = true;
+        startX = e.clientX;
+        scrollStart = carousel.scrollLeft;
+        carousel.classList.add("dragging");
+        carousel.setPointerCapture(e.pointerId);
+      });
+
+      carousel.addEventListener("pointermove", (e) => {
+        if (!isDown || startX === undefined || scrollStart === undefined) return;
+        const dx = e.clientX - startX;
+        carousel.scrollLeft = scrollStart - dx;
+      });
+
+      ["pointerup", "pointercancel", "pointerleave"].forEach((evt) => carousel.addEventListener(evt, endDrag));
+
+      // Molette shift pour scroll horizontal (bonus)
       carousel.addEventListener(
-        "keydown",
+        "wheel",
         (e) => {
-          if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && hint) hideHint();
+          if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
+            carousel.scrollLeft += e.deltaY;
+            e.preventDefault();
+          }
         },
-        { once: true },
+        { passive: false },
       );
+
+      // Navigation clavier (flèches)
+      carousel.addEventListener("keydown", (e) => {
+        const step = 120;
+        if (e.key === "ArrowRight") {
+          carousel.scrollBy({ left: step, behavior: "smooth" });
+        }
+        if (e.key === "ArrowLeft") {
+          carousel.scrollBy({ left: -step, behavior: "smooth" });
+        }
+      });
+
+      const hint = document.getElementById("drag-hint");
+      if (carousel) {
+        const hideHint = () => hint && hint.classList.add("hide");
+        carousel.addEventListener("pointerdown", hideHint, { once: true });
+        carousel.addEventListener(
+          "keydown",
+          (e) => {
+            if ((e.key === "ArrowRight" || e.key === "ArrowLeft") && hint) hideHint();
+          },
+          { once: true },
+        );
+      }
     }
-  }
 
-  // Modal RGPD : ouverture/fermeture
-  const rgpdCard = document.getElementById("rgpd-card");
-  const rgpdModal = document.getElementById("rgpd-modal");
-  const closeRgpdModal = document.getElementById("close-rgpd");
+    // Modal RGPD : ouverture/fermeture
+    const rgpdCard = document.getElementById("rgpd-card");
+    const rgpdModal = document.getElementById("rgpd-modal");
+    const closeRgpdModal = document.getElementById("close-rgpd");
 
-  // Modal ANSSI : ouverture/fermeture
-  const anssiCard = document.getElementById("anssi-card");
-  const anssiModal = document.getElementById("anssi-modal");
-  const closeAnssiModal = document.getElementById("close-anssi");
+    // Modal ANSSI : ouverture/fermeture
+    const anssiCard = document.getElementById("anssi-card");
+    const anssiModal = document.getElementById("anssi-modal");
+    const closeAnssiModal = document.getElementById("close-anssi");
 
-  if (rgpdCard && rgpdModal && closeRgpdModal) {
-    rgpdCard.addEventListener("click", () => {
-      rgpdModal.style.display = "block";
-    });
+    if (rgpdCard && rgpdModal && closeRgpdModal) {
+      rgpdCard.addEventListener("click", () => {
+        rgpdModal.style.display = "block";
+      });
 
-    closeRgpdModal.addEventListener("click", () => {
-      rgpdModal.style.display = "none";
-    });
-
-    window.addEventListener("click", (event) => {
-      if (event.target === rgpdModal) {
+      closeRgpdModal.addEventListener("click", () => {
         rgpdModal.style.display = "none";
-      }
-    });
-  }
+      });
 
-  if (anssiCard && anssiModal && closeAnssiModal) {
-    anssiCard.addEventListener("click", () => {
-      anssiModal.style.display = "block";
-    });
+      window.addEventListener("click", (event) => {
+        if (event.target === rgpdModal) {
+          rgpdModal.style.display = "none";
+        }
+      });
+    }
 
-    closeAnssiModal.addEventListener("click", () => {
-      anssiModal.style.display = "none";
-    });
+    if (anssiCard && anssiModal && closeAnssiModal) {
+      anssiCard.addEventListener("click", () => {
+        anssiModal.style.display = "block";
+      });
 
-    window.addEventListener("click", (event) => {
-      if (event.target === anssiModal) {
+      closeAnssiModal.addEventListener("click", () => {
         anssiModal.style.display = "none";
-      }
-    });
-  }
+      });
 
-  // Modal PIX : ouverture/fermeture
-  const pixCard = document.getElementById("pix-card");
-  const pixModal = document.getElementById("pix-modal");
-  const closePixModal = document.getElementById("close-pix");
+      window.addEventListener("click", (event) => {
+        if (event.target === anssiModal) {
+          anssiModal.style.display = "none";
+        }
+      });
+    }
 
-  if (pixCard && pixModal && closePixModal) {
-    pixCard.addEventListener("click", () => {
-      pixModal.style.display = "block";
-    });
+    // Modal PIX : ouverture/fermeture
+    const pixCard = document.getElementById("pix-card");
+    const pixModal = document.getElementById("pix-modal");
+    const closePixModal = document.getElementById("close-pix");
 
-    closePixModal.addEventListener("click", () => {
-      pixModal.style.display = "none";
-    });
+    if (pixCard && pixModal && closePixModal) {
+      pixCard.addEventListener("click", () => {
+        pixModal.style.display = "block";
+      });
 
-    window.addEventListener("click", (event) => {
-      if (event.target === pixModal) {
+      closePixModal.addEventListener("click", () => {
         pixModal.style.display = "none";
-      }
-    });
-  }
+      });
 
-  // Navigation carousel RGPD
-  let currentSlide = 0;
-  const slides = document.querySelectorAll(".rgpd-slide");
-  const updateSlideVisibility = () => {
-    slides.forEach((slide, index) => {
-      if (slide instanceof HTMLElement) {
-        slide.style.display = index === currentSlide ? "block" : "none";
-      }
-    });
-  };
+      window.addEventListener("click", (event) => {
+        if (event.target === pixModal) {
+          pixModal.style.display = "none";
+        }
+      });
+    }
 
-  const nextBtn = document.getElementById("nextBtn");
-  const prevBtn = document.getElementById("prevBtn");
+    // Navigation carousel RGPD
+    let currentSlide = 0;
+    const slides = document.querySelectorAll(".rgpd-slide");
+    const updateSlideVisibility = () => {
+      slides.forEach((slide, index) => {
+        if (slide instanceof HTMLElement) {
+          slide.style.display = index === currentSlide ? "block" : "none";
+        }
+      });
+    };
 
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      if (currentSlide < slides.length - 1) {
-        currentSlide++;
-        updateSlideVisibility();
-      }
-    });
-  }
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (currentSlide > 0) {
-        currentSlide--;
-        updateSlideVisibility();
-      }
-    });
-  }
+    if (nextBtn) {
+      nextBtn.addEventListener("click", () => {
+        if (currentSlide < slides.length - 1) {
+          currentSlide++;
+          updateSlideVisibility();
+        }
+      });
+    }
 
-  // Navigation carousel ANSSI
-  let currentAnssiSlide = 0;
-  const anssiSlides = document.querySelectorAll(".anssi-slide");
-  const updateAnssiSlideVisibility = () => {
-    anssiSlides.forEach((slide, index) => {
-      if (slide instanceof HTMLElement) {
-        slide.style.display = index === currentAnssiSlide ? "block" : "none";
-      }
-    });
-  };
+    if (prevBtn) {
+      prevBtn.addEventListener("click", () => {
+        if (currentSlide > 0) {
+          currentSlide--;
+          updateSlideVisibility();
+        }
+      });
+    }
 
-  const nextAnssiBtn = document.getElementById("nextAnssiBtn");
-  const prevAnssiBtn = document.getElementById("prevAnssiBtn");
+    // Navigation carousel ANSSI
+    let currentAnssiSlide = 0;
+    const anssiSlides = document.querySelectorAll(".anssi-slide");
+    const updateAnssiSlideVisibility = () => {
+      anssiSlides.forEach((slide, index) => {
+        if (slide instanceof HTMLElement) {
+          slide.style.display = index === currentAnssiSlide ? "block" : "none";
+        }
+      });
+    };
 
-  if (nextAnssiBtn) {
-    nextAnssiBtn.addEventListener("click", () => {
-      if (currentAnssiSlide < anssiSlides.length - 1) {
-        currentAnssiSlide++;
-        updateAnssiSlideVisibility();
-      }
-    });
-  }
+    const nextAnssiBtn = document.getElementById("nextAnssiBtn");
+    const prevAnssiBtn = document.getElementById("prevAnssiBtn");
 
-  if (prevAnssiBtn) {
-    prevAnssiBtn.addEventListener("click", () => {
-      if (currentAnssiSlide > 0) {
-        currentAnssiSlide--;
-        updateAnssiSlideVisibility();
-      }
-    });
-  }
+    if (nextAnssiBtn) {
+      nextAnssiBtn.addEventListener("click", () => {
+        if (currentAnssiSlide < anssiSlides.length - 1) {
+          currentAnssiSlide++;
+          updateAnssiSlideVisibility();
+        }
+      });
+    }
+
+    if (prevAnssiBtn) {
+      prevAnssiBtn.addEventListener("click", () => {
+        if (currentAnssiSlide > 0) {
+          currentAnssiSlide--;
+          updateAnssiSlideVisibility();
+        }
+      });
+    }
+  });
 </script>
 
 <style>
