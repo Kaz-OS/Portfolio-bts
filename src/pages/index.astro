@@ -131,19 +131,35 @@ const socials = [
         <div class="skill">HTML</div>
         <div class="skill">CSS</div>
         <div class="skill">PHP</div>
-        <div class="skill">Astro</div>
         <div class="skill">C#</div>
         <div class="skill">Python</div>
-        <div class="skill">SQL</div>
-        <div class="skill">SQL Serveur</div>
         <div class="skill">Github</div>
         <div class="skill">Linux</div>
-        <div class="skill">Dotnet</div>
-        <div class="skill">Transact-SQL</div>
-        <div class="skill">Symfony</div>
       </div>
     </div>
     <p class="drag-hint" id="drag-hint" aria-hidden="true">Glissez avec la souris</p>
+  </section>
+  <section class="Frameworks">
+    <h1>Frameworks</h1>
+    <div class="carousel" id="frameworks-carousel" tabindex="0" aria-label="Carrousel des frameworks">
+      <div class="carousel-track">
+        <div class="skill">Astro</div>
+        <div class="skill">Dotnet</div>
+        <div class="skill">Symfony</div>
+      </div>
+    </div>
+    <p class="drag-hint" id="drag-hint-frameworks" aria-hidden="true">Glissez avec la souris</p>
+  </section>
+  <section class="Databases">
+    <h1>Bases de données</h1>
+    <div class="carousel" id="db-carousel" tabindex="0" aria-label="Carrousel des bases de données">
+      <div class="carousel-track">
+        <div class="skill">SQL</div>
+        <div class="skill">SQL Serveur</div>
+        <div class="skill">Transact-SQL</div>
+      </div>
+    </div>
+    <p class="drag-hint" id="drag-hint-db" aria-hidden="true">Glissez avec la souris</p>
   </section>
   <section class="Softskill">
     <h1>Soft Skills</h1>
@@ -233,20 +249,22 @@ const socials = [
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    // Drag horizontal (souris + tactile + pointer)
-    const carousel = document.getElementById("skills-carousel");
-    let isDown = false;
-    let startX = 0;
-    let scrollStart = 0;
+    // Fonction générique pour initialiser un carrousel
+    const setupCarousel = (carouselId, hintId) => {
+      const carousel = document.getElementById(carouselId);
+      const hint = document.getElementById(hintId);
 
-    const endDrag = () => {
-      isDown = false;
-      if (carousel) {
+      if (!carousel) return;
+
+      let isDown = false;
+      let startX = 0;
+      let scrollStart = 0;
+
+      const endDrag = () => {
+        isDown = false;
         carousel.classList.remove("dragging");
-      }
-    };
+      };
 
-    if (carousel) {
       carousel.addEventListener("pointerdown", (e) => {
         isDown = true;
         startX = e.clientX;
@@ -263,7 +281,6 @@ const socials = [
 
       ["pointerup", "pointercancel", "pointerleave"].forEach((evt) => carousel.addEventListener(evt, endDrag));
 
-      // Molette shift pour scroll horizontal (bonus)
       carousel.addEventListener(
         "wheel",
         (e) => {
@@ -275,7 +292,6 @@ const socials = [
         { passive: false },
       );
 
-      // Navigation clavier (flèches)
       carousel.addEventListener("keydown", (e) => {
         const step = 120;
         if (e.key === "ArrowRight") {
@@ -286,9 +302,8 @@ const socials = [
         }
       });
 
-      const hint = document.getElementById("drag-hint");
-      if (carousel) {
-        const hideHint = () => hint && hint.classList.add("hide");
+      if (hint) {
+        const hideHint = () => hint.classList.add("hide");
         carousel.addEventListener("pointerdown", hideHint, { once: true });
         carousel.addEventListener(
           "keydown",
@@ -298,7 +313,12 @@ const socials = [
           { once: true },
         );
       }
-    }
+    };
+
+    // Initialisation des trois carrousels
+    setupCarousel("skills-carousel", "drag-hint");
+    setupCarousel("frameworks-carousel", "drag-hint-frameworks");
+    setupCarousel("db-carousel", "drag-hint-db");
 
     // Modal RGPD : ouverture/fermeture
     const rgpdCard = document.getElementById("rgpd-card");
@@ -637,7 +657,9 @@ const socials = [
     color: #777;
   }
 
-  .Hardskill {
+  .Hardskill,
+  .Frameworks,
+  .Databases {
     margin-top: 3rem;
     text-align: center;
   }
